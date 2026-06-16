@@ -28,6 +28,13 @@ export function EventsManager() {
 
   const sorted = [...activeScenario.events].sort((a, b) => a.age - b.age);
 
+  // Basis-Endvermögen (mit allen aktiven Ereignissen) einmal berechnen und an
+  // alle Zeilen weitergeben – statt es pro Zeile erneut zu projizieren.
+  const baseFinalWealth = useMemo(
+    () => runProjection(activeScenario).finalWealth,
+    [activeScenario],
+  );
+
   return (
     <div className="space-y-5">
       {/* Templates */}
@@ -72,6 +79,7 @@ export function EventsManager() {
               key={ev.id}
               event={ev}
               scenario={activeScenario}
+              baseFinalWealth={baseFinalWealth}
               currency={cur}
               onChange={(p) => updateEvent(ev.id, p)}
               onRemove={() => removeEvent(ev.id)}
@@ -91,25 +99,27 @@ function suggestAge(sc: Scenario): number {
 function EventRow({
   event,
   scenario,
+  baseFinalWealth,
   currency,
   onChange,
   onRemove,
 }: {
   event: LifeEvent;
   scenario: Scenario;
+  baseFinalWealth: number;
   currency: import("@/lib/types").Currency;
   onChange: (patch: Partial<LifeEvent>) => void;
   onRemove: () => void;
 }) {
-  // Opportunitätskosten: Endvermögen mit vs. ohne dieses Ereignis.
+  // Opportunitätskosten: Endvermögen mit allen Ereignissen (vom Parent
+  // einmalig berechnet) minus Endvermögen ohne genau dieses Ereignis.
   const impact = useMemo(() => {
-    const withEvent = runProjection(scenario).finalWealth;
     const without = runProjection({
       ...scenario,
       events: scenario.events.filter((e) => e.id !== event.id),
     }).finalWealth;
-    return withEvent - without;
-  }, [scenario, event.id]);
+    return baseFinalWealth - without;
+  }, [scenario, event.id, baseFinalWealth]);
 
   const isPercent = event.type === "income_change" || event.type === "crash";
   const amountSuffix = isPercent ? "%" : currency;

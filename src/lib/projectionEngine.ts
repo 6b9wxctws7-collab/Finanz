@@ -87,25 +87,23 @@ export function runProjection(scenario: Scenario, calendarYear = new Date().getF
 
     // --- 1. Einkommen -------------------------------------------------------
     // Geplantes Einkommen: Gehaltssteigerung jährlich, optional Inflation.
+    // Wird für die budgetbasierte Sparrate und den Teilzeit-Effekt gebraucht.
     const salaryGrowthFactor = Math.pow(1 + start.annualSalaryGrowth, yearElapsed);
     const incomeInflationFactor = start.inflateIncome
       ? Math.pow(1 + monthlyInflation, m)
       : 1;
     const scheduledIncome = start.netIncome * salaryGrowthFactor * incomeInflationFactor;
 
-    // --- 2. Ausgaben --------------------------------------------------------
-    const expenseInflationFactor = Math.pow(1 + monthlyInflation, m);
-    const scheduledExpenses =
-      scenario.savingsMode === "fixed"
-        ? scheduledIncome - scenario.fixedSavings
-        : budgetExpenses * expenseInflationFactor;
-
-    // --- 3. Sparrate (vor Ereignis-Cashflows) ------------------------------
-    // Geplante Einkommens-/Ausgabenbasis inkl. Wachstum.
-    let plannedBase =
-      scenario.savingsMode === "fixed"
-        ? scenario.fixedSavings * salaryGrowthFactor
-        : scheduledIncome - scheduledExpenses;
+    // --- 2./3. Geplante Basis-Sparrate (vor Ereignis-Cashflows) ------------
+    let plannedBase: number;
+    if (scenario.savingsMode === "fixed") {
+      // Feste Sparrate: bewusst nominal konstant ("fest").
+      plannedBase = scenario.fixedSavings;
+    } else {
+      // Budgetbasiert: Einkommen minus inflationsbereinigte Ausgaben.
+      const expenses = budgetExpenses * Math.pow(1 + monthlyInflation, m);
+      plannedBase = scheduledIncome - expenses;
+    }
 
     // --- 4. Ereignisse anwenden --------------------------------------------
     let incomeChangeMultiplier = 1;
@@ -171,8 +169,10 @@ export function runProjection(scenario: Scenario, calendarYear = new Date().getF
     const returnAmount = wealth * monthlyReturn;
     wealth += returnAmount;
 
-    // eingezahltes Kapital (ohne Rendite, inkl. Crash-Verlust als negativ).
-    cumulativeContributions += contribution + lumpSum + startWealthMonth * (crashFactor - 1);
+    // Eingezahltes Eigenkapital = nur externe Cashflows (Sparrate + Einmal-
+    // beträge). Ein Crash ist ein Markt-/Renditeeffekt und zählt bewusst NICHT
+    // zum eingezahlten Kapital (sonst würde die Kapitallinie beim Crash fallen).
+    cumulativeContributions += contribution + lumpSum;
 
     // Jahresaggregation.
     yearContributions += contribution + lumpSum;
@@ -223,9 +223,4 @@ export function runProjection(scenario: Scenario, calendarYear = new Date().getF
     initialMonthlySavings,
     hasNegativeSavings,
   };
-}
-
-/** Bequemer Helfer: nur das Endvermögen eines Szenarios. */
-export function finalWealthOf(scenario: Scenario): number {
-  return runProjection(scenario).finalWealth;
 }

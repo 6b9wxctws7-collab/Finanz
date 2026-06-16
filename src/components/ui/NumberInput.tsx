@@ -31,13 +31,16 @@ export function NumberInput({
     setText(formatForEdit(value));
   }, [value]);
 
-  function commit(raw: string) {
-    const normalized = raw.replace(/\s/g, "").replace(",", ".");
-    let num = parseFloat(normalized);
-    if (!Number.isFinite(num)) num = 0;
-    if (typeof min === "number") num = Math.max(min, num);
-    if (typeof max === "number") num = Math.min(max, num);
-    onChange(num);
+  function parse(raw: string): number {
+    const num = parseFloat(raw.replace(/\s/g, "").replace(",", "."));
+    return Number.isFinite(num) ? num : 0;
+  }
+
+  function clamp(num: number): number {
+    let v = num;
+    if (typeof min === "number") v = Math.max(min, v);
+    if (typeof max === "number") v = Math.min(max, v);
+    return v;
   }
 
   return (
@@ -47,10 +50,17 @@ export function NumberInput({
         value={text}
         placeholder={placeholder}
         onChange={(e) => {
+          // Während des Tippens nur den Rohwert melden – nicht klemmen,
+          // damit z. B. ein zweistelliges Alter flüssig eingegeben werden kann.
           setText(e.target.value);
-          commit(e.target.value);
+          onChange(parse(e.target.value));
         }}
-        onBlur={() => setText(formatForEdit(value))}
+        onBlur={() => {
+          // Erst beim Verlassen des Feldes auf den gültigen Bereich klemmen.
+          const clamped = clamp(parse(text));
+          onChange(clamped);
+          setText(formatForEdit(clamped));
+        }}
         className={suffix ? "pr-10" : undefined}
         step={step}
       />

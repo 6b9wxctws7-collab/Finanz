@@ -104,6 +104,21 @@ describe("runProjection – Ereignisse", () => {
     expect(r.finalWealth).toBeCloseTo(7000, 2);
   });
 
+  it("ein Crash zählt als Renditeverlust, nicht als Kapitalabbau", () => {
+    // Nur Startvermögen, keine Sparrate/Rendite: 10.000 → Crash -30 % → 7.000.
+    const sc = fixedScenario({ startWealth: 10000, targetAge: 40 }, 0);
+    sc.events = [
+      { id: "c", type: "crash", name: "Crash", age: 31, amount: 30, recurrence: "once", enabled: true },
+    ];
+    const r = runProjection(sc);
+    // Eingezahltes Kapital bleibt das Startkapital (kein Cashflow abgeflossen).
+    expect(r.totalContributions).toBeCloseTo(10000, 2);
+    // Der Verlust schlägt sich vollständig in der (negativen) Rendite nieder.
+    expect(r.totalReturns).toBeCloseTo(-3000, 2);
+    // Invariante: Endvermögen = Kapital + Rendite.
+    expect(r.totalContributions + r.totalReturns).toBeCloseTo(r.finalWealth, 2);
+  });
+
   it("ein deaktiviertes Ereignis wird ignoriert", () => {
     const sc = fixedScenario({ startWealth: 10000, targetAge: 40 }, 0);
     sc.events = [
