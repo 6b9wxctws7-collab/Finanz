@@ -24,6 +24,22 @@ Wohnungskauf, Teilzeit, Sabbatical …) langfristig auf dein Vermögen auswirken
 
 Next.js 14 (App Router) · TypeScript · React 18 · Tailwind CSS · Recharts · Vitest
 
+## Routen
+
+- **`/`** – Landingpage (Hero, Zielgruppen für Privatnutzer & Berater, CTAs „Demo starten" / „Beta-Zugang anfragen")
+- **`/app`** – die eigentliche Studio-App; am Ende ein **Feedback-Widget** (Zahlungsbereitschaft)
+
+## Validierungsdaten (Beta-Leads & Feedback)
+
+Beta-Anfragen und Produkt-Feedback werden in `src/lib/feedback.ts` typisiert erfasst und
+lokal in `localStorage` gespeichert (`moneytimeline.leads.v1`, `moneytimeline.feedback.v1`).
+
+Die Struktur ist **Supabase-fähig**: Sind die Umgebungsvariablen
+`NEXT_PUBLIC_SUPABASE_URL` und `NEXT_PUBLIC_SUPABASE_ANON_KEY` gesetzt, werden neue
+Datensätze zusätzlich per REST in die Tabellen `beta_leads` bzw. `product_feedback`
+geschrieben (das passende SQL-Schema steht als Kommentar in `feedback.ts`). Ohne
+Konfiguration bleibt alles rein lokal. `exportValidationData()` liefert alle Daten als JSON.
+
 ## Schnellstart
 
 ```bash
