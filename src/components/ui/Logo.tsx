@@ -82,8 +82,11 @@ export function Logo({
   showWordmark?: boolean;
 }) {
   return (
-    <span className={cn("flex items-center gap-2.5", className)}>
-      <LogoMark size={size} />
+    <span className={cn("group flex cursor-pointer items-center gap-2.5", className)}>
+      <LogoMark
+        size={size}
+        className="transition-transform duration-300 group-hover:-rotate-6 group-hover:scale-110 group-hover:animate-wiggle"
+      />
       {showWordmark && (
         <span className="text-xl font-bold tracking-tight">
           <span className="text-ink-900">ETF</span>

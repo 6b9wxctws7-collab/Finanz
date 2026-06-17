@@ -19,6 +19,7 @@ import { Country, Scenario } from "@/lib/types";
 import { Button, Field, Segmented } from "@/components/ui/primitives";
 import { NumberInput } from "@/components/ui/NumberInput";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
+import { Confetti } from "@/components/ui/Confetti";
 import { Logo } from "@/components/ui/Logo";
 import { Disclaimer } from "@/components/Disclaimer";
 
@@ -67,6 +68,7 @@ export function Onboarding() {
 
   return (
     <div className="fixed inset-0 z-50 flex animate-fade-in flex-col bg-gradient-to-b from-brand-50 to-white">
+      {step === STEPS.length - 1 && <Confetti />}
       {/* Kopf: Fortschritt + Überspringen */}
       <div className="flex items-center justify-between gap-4 border-b border-ink-100 bg-white px-5 py-4 sm:px-8">
         <div className="flex items-center gap-3">

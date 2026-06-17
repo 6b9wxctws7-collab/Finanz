@@ -75,8 +75,9 @@ export function LandingPage() {
             className="animate-fade-in-up mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row"
             style={{ animationDelay: "0.24s" }}
           >
-            <Button variant="primary" onClick={startOnboarding} className="px-6 py-3 text-base">
-              <Rocket className="h-4 w-4" /> Jetzt ETF-maxxen
+            <Button variant="primary" onClick={startOnboarding} className="group px-6 py-3 text-base">
+              <Rocket className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-12" />{" "}
+              Jetzt ETF-maxxen
             </Button>
             <Button variant="secondary" onClick={() => openBeta("private")} className="px-6 py-3 text-base">
               Beta-Zugang sichern
@@ -156,9 +157,10 @@ export function LandingPage() {
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button
               onClick={startOnboarding}
-              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-base font-medium text-brand-700 transition-colors hover:bg-brand-50"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-base font-medium text-brand-700 transition-transform hover:-translate-y-0.5 hover:bg-brand-50"
             >
-              <Rocket className="h-4 w-4" /> Jetzt ETF-maxxen
+              <Rocket className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-1 group-hover:rotate-12" />{" "}
+              Jetzt ETF-maxxen
             </button>
             <button
               onClick={() => openBeta("private")}
@@ -185,8 +187,8 @@ export function LandingPage() {
 
 function Step({ n, title, text }: { n: string; title: string; text: string }) {
   return (
-    <div className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg">
-      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-sm font-semibold text-brand-700">
+    <div className="group rounded-2xl border border-ink-100 bg-white p-5 shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg">
+      <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-sm font-semibold text-brand-700 transition-transform duration-300 group-hover:rotate-12 group-hover:scale-110">
         {n}
       </div>
       <h3 className="mt-3 text-sm font-semibold text-ink-900">{title}</h3>
