@@ -13,7 +13,6 @@ import { Disclaimer } from "./Disclaimer";
 import {
   AlertTriangle,
   Cake,
-  Flag,
   Landmark,
   PiggyBank,
   ShoppingCart,
@@ -34,7 +33,7 @@ export function Dashboard() {
   return (
     <div className="space-y-5">
       {/* Kennzahlenkarten */}
-      <div className="stagger-children grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
+      <div className="stagger-children grid grid-cols-2 gap-3 lg:grid-cols-4">
         <KpiCard label="Aktuelles Alter" value={`${activeScenario.start.currentAge} J.`} icon={Cake} />
         <KpiCard
           label="Aktuelles Vermögen"
@@ -56,32 +55,33 @@ export function Dashboard() {
           icon={PiggyBank}
           tone={result.initialMonthlySavings < 0 ? "amber" : "default"}
         />
-        {/* Endvermögen: nominal groß, inflationsbereinigte Kaufkraft direkt darunter */}
-        <div className="group rounded-2xl border border-brand-700 bg-gradient-to-br from-brand-600 to-brand-700 p-4 text-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg">
-          <div className="flex items-center gap-1.5">
-            <Target className="h-4 w-4 text-white/90 transition-transform duration-500 group-hover:rotate-12" strokeWidth={2.25} />
-            <span className="text-xs font-medium text-white/80">
-              Endvermögen mit {activeScenario.start.targetAge}
-            </span>
-          </div>
-          <div className="mt-1.5 text-2xl font-semibold tracking-tight">
-            <AnimatedNumber value={result.finalWealth} durationMs={900} format={(n) => formatCurrency(n, cur)} />
-          </div>
-          <div className="text-xs text-white/70">nominal</div>
+        <KpiCard label="1 Mio. erreicht mit" value={<AnimatedAge age={result.ageAt1m} />} icon={Trophy} />
 
-          <div className="mt-3 flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 ring-1 ring-inset ring-white/15">
-            <ShoppingCart className="h-4 w-4 shrink-0 text-white/90" strokeWidth={2} />
+        {/* Endvermögen als breiter Balken über die volle Breite */}
+        <div className="group col-span-2 flex flex-col gap-4 rounded-2xl border border-brand-700 bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg sm:flex-row sm:items-center sm:justify-between lg:col-span-4">
+          <div>
+            <div className="flex items-center gap-1.5">
+              <Target className="h-4 w-4 text-white/90 transition-transform duration-500 group-hover:rotate-12" strokeWidth={2.25} />
+              <span className="text-xs font-medium text-white/80">
+                Endvermögen mit {activeScenario.start.targetAge}
+              </span>
+            </div>
+            <div className="mt-1 text-3xl font-semibold tracking-tight sm:text-4xl">
+              <AnimatedNumber value={result.finalWealth} durationMs={900} format={(n) => formatCurrency(n, cur)} />
+            </div>
+            <div className="text-xs text-white/70">nominal</div>
+          </div>
+
+          <div className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-3 ring-1 ring-inset ring-white/15 sm:min-w-[240px]">
+            <ShoppingCart className="h-5 w-5 shrink-0 text-white/90" strokeWidth={2} />
             <div className="min-w-0">
-              <div className="text-base font-semibold leading-tight">
+              <div className="text-xl font-semibold leading-tight">
                 <AnimatedNumber value={result.finalRealWealth} durationMs={900} format={(n) => formatCurrency(n, cur)} />
               </div>
-              <div className="text-[11px] leading-tight text-white/75">heutige Kaufkraft</div>
+              <div className="text-[11px] leading-tight text-white/75">heutige Kaufkraft · inflationsbereinigt</div>
             </div>
           </div>
         </div>
-
-        <KpiCard label="100.000 erreicht mit" value={<AnimatedAge age={result.ageAt100k} />} icon={Flag} />
-        <KpiCard label="1 Mio. erreicht mit" value={<AnimatedAge age={result.ageAt1m} />} icon={Trophy} />
       </div>
 
       {/* Nächstes Ereignis + Warnungen */}
