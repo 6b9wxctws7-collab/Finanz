@@ -52,7 +52,6 @@ export function Onboarding() {
         annualInflation,
         annualSalaryGrowth: 0.01,
         netIncome,
-        inflateIncome: true,
       },
       savingsMode: "fixed",
       fixedSavings: monthlySavings,

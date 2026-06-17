@@ -86,13 +86,11 @@ export function runProjection(scenario: Scenario, calendarYear = new Date().getF
     const yearElapsed = Math.floor(m / 12);
 
     // --- 1. Einkommen -------------------------------------------------------
-    // Geplantes Einkommen: Gehaltssteigerung jährlich, optional Inflation.
-    // Wird für die budgetbasierte Sparrate und den Teilzeit-Effekt gebraucht.
+    // Geplantes Einkommen: wächst nur mit der Gehaltssteigerung (nicht zusätzlich
+    // mit der Inflation). Wird für die budgetbasierte Sparrate und den
+    // Teilzeit-Effekt gebraucht.
     const salaryGrowthFactor = Math.pow(1 + start.annualSalaryGrowth, yearElapsed);
-    const incomeInflationFactor = start.inflateIncome
-      ? Math.pow(1 + monthlyInflation, m)
-      : 1;
-    const scheduledIncome = start.netIncome * salaryGrowthFactor * incomeInflationFactor;
+    const scheduledIncome = start.netIncome * salaryGrowthFactor;
 
     // --- 2./3. Geplante Basis-Sparrate (vor Ereignis-Cashflows) ------------
     let plannedBase: number;

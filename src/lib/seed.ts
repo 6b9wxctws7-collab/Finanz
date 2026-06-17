@@ -13,7 +13,6 @@ export function defaultStartData(): StartData {
     annualInflation: 0.02,
     annualSalaryGrowth: 0.01,
     netIncome: 3200,
-    inflateIncome: true,
   };
 }
 
@@ -90,7 +89,6 @@ export function demoScenario(): Scenario {
       annualInflation: 0.02,
       annualSalaryGrowth: 0.015,
       netIncome: 5450,
-      inflateIncome: true,
     },
     savingsMode: "budget",
     fixedSavings: 1245,

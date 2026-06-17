@@ -74,8 +74,6 @@ export interface StartData {
   annualSalaryGrowth: number;
   /** Anfangs-Nettoeinkommen pro Monat. */
   netIncome: number;
-  /** Inflation auch auf das Einkommen anwenden? */
-  inflateIncome: boolean;
 }
 
 // ---- Szenario & Plan --------------------------------------------------------

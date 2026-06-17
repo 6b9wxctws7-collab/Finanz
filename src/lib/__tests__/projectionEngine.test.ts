@@ -17,7 +17,6 @@ function fixedScenario(overrides: Partial<Scenario["start"]> = {}, fixedSavings 
     annualReturn: 0,
     annualInflation: 0,
     annualSalaryGrowth: 0,
-    inflateIncome: false,
     netIncome: 0,
     ...overrides,
   };
@@ -152,7 +151,6 @@ describe("runProjection – Budget & negative Sparrate", () => {
       annualReturn: 0,
       annualInflation: 0,
       annualSalaryGrowth: 0,
-      inflateIncome: false,
     };
     sc.budget.fixed.items[0].amount = 2000; // Ausgaben 2000
     const r = runProjection(sc);

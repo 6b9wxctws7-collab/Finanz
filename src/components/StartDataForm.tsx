@@ -96,19 +96,6 @@ export function StartDataForm() {
             />
           </Field>
         </div>
-
-        <div className="flex items-center gap-2 border-t border-ink-100 px-5 py-4">
-          <input
-            id="inflateIncome"
-            type="checkbox"
-            checked={s.inflateIncome}
-            onChange={(e) => patch("inflateIncome", e.target.checked)}
-            className="h-4 w-4 rounded border-ink-300 text-brand-600 focus:ring-brand-200"
-          />
-          <label htmlFor="inflateIncome" className="text-sm text-ink-700">
-            Inflation auch auf das Einkommen anwenden (Einkommen steigt mit der Teuerung)
-          </label>
-        </div>
       </Card>
 
       {highReturn && (
