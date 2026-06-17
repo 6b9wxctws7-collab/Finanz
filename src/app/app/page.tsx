@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { usePlan } from "@/lib/store";
 import { cn } from "@/lib/cn";
 import { Dashboard } from "@/components/Dashboard";
@@ -57,6 +57,20 @@ export default function StudioPage() {
   const { plan, activeScenario, setActiveScenarioId, addScenario, loadDemo, resetAll, isReady } =
     usePlan();
 
+  // Scroll-Hinweis: nur zeigen, wenn die Tab-Leiste überläuft und noch nicht
+  // gescrollt wurde – dann „zuckt“ sie ab und an nach links.
+  const navRef = useRef<HTMLElement>(null);
+  const [hintScroll, setHintScroll] = useState(false);
+
+  useEffect(() => {
+    const el = navRef.current;
+    if (!el) return;
+    const check = () => setHintScroll(el.scrollWidth > el.clientWidth + 4);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
+
   // Beim ersten Öffnen (noch kein Onboarding durchlaufen) den Assistenten zeigen.
   const showOnboarding = isReady && !plan.onboarded;
 
@@ -111,24 +125,30 @@ export default function StudioPage() {
       </header>
 
       {/* Navigation – zentrale, farblich kodierte Bereiche */}
-      <nav className="mb-6 flex gap-1.5 overflow-x-auto rounded-2xl border border-ink-100 bg-white p-2 shadow-card-lg">
-        {tabs.map((t) => {
-          const Icon = t.icon;
-          const active = tab === t.key;
-          return (
-            <button
-              key={t.key}
-              onClick={() => setTab(t.key)}
-              className={cn(
-                "flex shrink-0 items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors",
-                active ? cn(t.activeBg, "text-white shadow-sm") : cn("text-ink-700", t.hover),
-              )}
-            >
-              <Icon className={cn("h-5 w-5", active ? "text-white" : t.iconColor)} strokeWidth={2.25} />
-              <span>{t.label}</span>
-            </button>
-          );
-        })}
+      <nav
+        ref={navRef}
+        onScroll={() => hintScroll && setHintScroll(false)}
+        className="mb-6 overflow-x-auto rounded-2xl border border-ink-100 bg-white p-2 shadow-card-lg [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+      >
+        <div className={cn("flex gap-1.5", hintScroll && "animate-scroll-hint")}>
+          {tabs.map((t) => {
+            const Icon = t.icon;
+            const active = tab === t.key;
+            return (
+              <button
+                key={t.key}
+                onClick={() => setTab(t.key)}
+                className={cn(
+                  "flex shrink-0 items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors",
+                  active ? cn(t.activeBg, "text-white shadow-sm") : cn("text-ink-700", t.hover),
+                )}
+              >
+                <Icon className={cn("h-5 w-5", active ? "text-white" : t.iconColor)} strokeWidth={2.25} />
+                <span>{t.label}</span>
+              </button>
+            );
+          })}
+        </div>
       </nav>
 
       {/* Inhalt */}

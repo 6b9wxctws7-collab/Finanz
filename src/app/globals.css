@@ -105,6 +105,17 @@ body {
   animation: wiggle 0.6s ease-in-out;
 }
 
+/* Scroll-Hinweis: zuckt „ab und an“ nach links, um Scrollbarkeit zu zeigen. */
+@keyframes scrollHint {
+  0%, 62%, 100% { transform: translateX(0); }
+  70% { transform: translateX(-14px); }
+  80% { transform: translateX(-4px); }
+  88% { transform: translateX(-10px); }
+}
+.animate-scroll-hint {
+  animation: scrollHint 3.6s ease-in-out infinite;
+}
+
 /* Konfetti-Regen für Feier-Momente. */
 @keyframes confettiFall {
   0% {
