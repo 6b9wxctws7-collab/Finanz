@@ -17,12 +17,16 @@ import { Button } from "@/components/ui/primitives";
 import { Logo } from "@/components/ui/Logo";
 import {
   CalendarClock,
+  ChevronsUpDown,
   GitCompare,
   LayoutDashboard,
   LineChart,
   LucideIcon,
+  Plus,
   Presentation,
+  RotateCcw,
   Settings,
+  Sparkles,
   Wallet,
 } from "lucide-react";
 
@@ -67,28 +71,42 @@ export default function StudioPage() {
           <span className="hidden text-xs text-ink-400 sm:inline">· Simulation, keine Anlageberatung</span>
         </Link>
 
-        <div className="flex flex-wrap items-center gap-2">
-          <select
-            value={plan.activeScenarioId}
-            onChange={(e) => setActiveScenarioId(e.target.value)}
-            className="rounded-xl border border-ink-200 bg-white px-3 py-2 text-sm font-medium text-ink-800 outline-none focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
-          >
-            {plan.scenarios.map((s) => (
-              <option key={s.id} value={s.id}>
-                {s.name}
-                {s.id === plan.baselineScenarioId ? " (Basis)" : ""}
-              </option>
-            ))}
-          </select>
-          <Button variant="secondary" onClick={() => addScenario()}>
-            + Szenario
-          </Button>
-          <Button variant="ghost" onClick={loadDemo} title="Beispieldaten laden">
-            Demo
-          </Button>
-          <Button variant="ghost" onClick={() => confirm("Alle Daten zurücksetzen?") && resetAll()}>
-            Reset
-          </Button>
+        <div className="flex w-full flex-col gap-2 sm:w-auto sm:flex-row sm:items-center">
+          {/* Szenario-Auswahl mit eigenem Chevron */}
+          <div className="relative w-full sm:w-56">
+            <select
+              value={plan.activeScenarioId}
+              onChange={(e) => setActiveScenarioId(e.target.value)}
+              aria-label="Szenario auswählen"
+              className="w-full appearance-none rounded-xl border border-ink-200 bg-white py-2 pl-3 pr-9 text-sm font-medium text-ink-800 outline-none transition-colors hover:border-ink-300 focus:border-brand-400 focus:ring-2 focus:ring-brand-100"
+            >
+              {plan.scenarios.map((s) => (
+                <option key={s.id} value={s.id}>
+                  {s.name}
+                  {s.id === plan.baselineScenarioId ? " (Basis)" : ""}
+                </option>
+              ))}
+            </select>
+            <ChevronsUpDown className="pointer-events-none absolute right-3 top-1/2 h-4 w-4 -translate-y-1/2 text-ink-400" />
+          </div>
+
+          {/* Aktionen: mobil drei gleich breite Spalten, ab sm inline */}
+          <div className="grid grid-cols-3 gap-2 sm:flex sm:items-center">
+            <Button variant="secondary" onClick={() => addScenario()}>
+              <Plus className="h-4 w-4" /> Szenario
+            </Button>
+            <Button variant="secondary" onClick={loadDemo} title="Beispieldaten laden">
+              <Sparkles className="h-4 w-4" /> Demo
+            </Button>
+            <Button
+              variant="secondary"
+              onClick={() => confirm("Alle Daten zurücksetzen?") && resetAll()}
+              className="text-ink-500 hover:text-red-600"
+              title="Alles zurücksetzen"
+            >
+              <RotateCcw className="h-4 w-4" /> Reset
+            </Button>
+          </div>
         </div>
       </header>
 
