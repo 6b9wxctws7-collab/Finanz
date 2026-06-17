@@ -108,7 +108,7 @@ export function Dashboard() {
         </Card>
 
         <Card className="lg:col-span-2">
-          <CardHeader title="Insights" subtitle="Automatisch aus deiner Planung abgeleitet" />
+          <CardHeader title="Insights" subtitle="Frisch aus deiner Finanz-Glaskugel" />
           <div className="space-y-2 px-5 py-4 text-sm text-ink-700">
             <Insight>
               Du erreichst 1&nbsp;Mio. voraussichtlich{" "}

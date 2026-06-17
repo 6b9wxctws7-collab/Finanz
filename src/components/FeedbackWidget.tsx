@@ -57,7 +57,7 @@ export function FeedbackWidget() {
     <Card>
       <CardHeader
         title="Kurzes Feedback (30 Sek.)"
-        subtitle="Hilf uns herauszufinden, ob sich das Produkt lohnt."
+        subtitle="Sag uns ehrlich: ist das ein W oder ein L?"
       />
       <div className="space-y-5 px-5 py-5">
         {/* Frage 1 */}

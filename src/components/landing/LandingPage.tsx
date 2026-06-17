@@ -6,7 +6,7 @@ import { usePlan } from "@/lib/store";
 import { Button } from "@/components/ui/primitives";
 import { Logo } from "@/components/ui/Logo";
 import { BetaRequestModal } from "@/components/BetaRequestModal";
-import { Briefcase, Check, Globe, Play, UserRound } from "lucide-react";
+import { Briefcase, Check, Rocket, UserRound } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 import { Disclaimer } from "@/components/Disclaimer";
 import { UserRole } from "@/lib/feedback";
@@ -39,10 +39,10 @@ export function LandingPage() {
         <Logo size={36} />
         <div className="flex items-center gap-2">
           <Button variant="ghost" onClick={() => openBeta("private")}>
-            Beta anfragen
+            Beta sichern
           </Button>
           <Button variant="primary" onClick={startOnboarding}>
-            Kostenlos starten
+            Jetzt maxxen
           </Button>
         </div>
       </header>
@@ -52,43 +52,43 @@ export function LandingPage() {
         <div className="animate-float pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-brand-200/50 to-emerald-100/40 blur-3xl" />
         <div className="relative mx-auto max-w-4xl px-4 pb-12 pt-10 text-center sm:px-6 sm:pt-16">
           <span className="animate-fade-in-up inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-            <Globe className="h-3.5 w-3.5" /> Für Deutschland &amp; die Schweiz · Beta
+            <Rocket className="h-3.5 w-3.5" /> Zinseszins-pilled · DE &amp; CH · Beta
           </span>
           <h1
             className="animate-fade-in-up mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl"
             style={{ animationDelay: "0.08s" }}
           >
-            Zeige in 5 Minuten, wie Auto, Wohnung,{" "}
+            Hör auf zu broke sein.{" "}
             <span className="animate-gradient bg-gradient-to-r from-brand-600 via-emerald-500 to-brand-600 bg-clip-text text-transparent">
-              Teilzeit oder Gehaltserhöhung
-            </span>{" "}
-            deine finanzielle Zukunft verändern.
+              Fang an zu ETF-maxxen.
+            </span>
           </h1>
           <p
             className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base text-ink-500 sm:text-lg"
             style={{ animationDelay: "0.16s" }}
           >
-            Plane Budget, Sparrate und Lebensereignisse – und sieh sofort, was eine Entscheidung
-            dein Endvermögen kostet oder bringt. Interaktiv, visuell, ohne Excel.
+            Sieh in 5 Minuten, wie Auto, Wohnung, Teilzeit oder Gehaltserhöhung dein Vermögen
+            entweder <span className="font-semibold text-emerald-600">to the moon</span> schicken
+            oder gnadenlos grillen. Kein Excel, kein Copium – nur deine Zukunft in Zahlen.
           </p>
           <div
             className="animate-fade-in-up mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row"
             style={{ animationDelay: "0.24s" }}
           >
             <Button variant="primary" onClick={startOnboarding} className="px-6 py-3 text-base">
-              <Play className="h-4 w-4" /> Kostenlos starten
+              <Rocket className="h-4 w-4" /> Jetzt ETF-maxxen
             </Button>
             <Button variant="secondary" onClick={() => openBeta("private")} className="px-6 py-3 text-base">
-              Beta-Zugang anfragen
+              Beta-Zugang sichern
             </Button>
           </div>
           <p
             className="animate-fade-in-up mt-3 text-xs text-ink-400"
             style={{ animationDelay: "0.32s" }}
           >
-            In 2 Min. startklar · Keine Anmeldung nötig · Daten bleiben lokal im Browser ·{" "}
+            In 2 Min. startklar · keine Anmeldung · Daten bleiben lokal ·{" "}
             <button onClick={startDemo} className="font-medium text-brand-600 underline-offset-2 hover:underline">
-              oder Demo-Szenario ansehen
+              oder einfach Demo gönnen
             </button>
           </p>
         </div>
@@ -97,43 +97,43 @@ export function LandingPage() {
       {/* So funktioniert's */}
       <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         <div className="stagger-children grid gap-3 sm:grid-cols-3">
-          <Step n="1" title="Budget & Startdaten" text="Einkommen, Ausgaben und Annahmen eingeben – die Sparrate wird automatisch berechnet." />
-          <Step n="2" title="Ereignisse hinzufügen" text="Auto, Wohnung, Teilzeit, Gehaltserhöhung – per Vorlage in Sekunden." />
-          <Step n="3" title="Wirkung sehen" text="Vermögenskurve, Meilensteine und Opportunitätskosten in Echtzeit." />
+          <Step n="1" title="Budget flexen" text="Einkommen eintragen, Ausgaben beichten – deine Sparrate rechnet sich von selbst." />
+          <Step n="2" title="Life happens" text="Auto, Wohnung, Kind, Sabbatical: wirf rein, was das Leben so droppt." />
+          <Step n="3" title="Zukunft entlocken" text="Vermögenskurve, Meilensteine und der brutale Realitätscheck nach Inflation." />
         </div>
       </section>
 
       {/* Zielgruppen */}
       <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
         <h2 className="mb-1 text-center text-2xl font-semibold tracking-tight text-ink-900">
-          Für wen ist das?
+          Für wen ist dieser Vibe?
         </h2>
         <p className="mb-6 text-center text-sm text-ink-500">
-          Egal ob für dich selbst oder deine Kund:innen.
+          Ob Solo-Maxxer oder Berater mit Klientel – passt.
         </p>
         <div className="stagger-children grid gap-4 md:grid-cols-2">
           <AudienceCard
             icon={UserRound}
-            title="Privatnutzer"
-            tagline="Verstehe deine finanzielle Zukunft"
+            title="Für dich"
+            tagline="Glow-up fürs Depot"
             points={[
-              "Sieh, wann du 100.000, 500.000 oder 1 Mio. erreichst",
-              "Vergleiche „Auto mit 32“ vs. „erst mit 36“",
-              "Nominal und inflationsbereinigt – ehrliche Zahlen",
+              "Sieh, wann du 100k, 500k & die erste Mio. knackst",
+              "Vergleiche „Auto mit 32“ vs. „erst mit 36“ (spoiler: tut weh)",
+              "Nominal vs. nach Inflation – Zahlen ohne Copium",
             ]}
-            primaryLabel="Kostenlos starten"
+            primaryLabel="Jetzt ETF-maxxen"
             onPrimary={startOnboarding}
-            secondaryLabel="Beta anfragen"
+            secondaryLabel="Beta sichern"
             onSecondary={() => openBeta("private")}
           />
           <AudienceCard
             icon={Briefcase}
-            title="Finanzberater & Coaches"
-            tagline="Beratung, die deine Kunden verstehen"
+            title="Für Berater & Coaches"
+            tagline="Zahlen, die deine Kund:innen feiern"
             highlight
             points={[
-              "Kundenfall benennen und als Präsentation zeigen",
-              "Szenarien live durchspielen statt statischer PDFs",
+              "Kundenfall benennen & als Präsentation flexen",
+              "Szenarien live durchspielen statt PDF-Friedhof",
               "Export/Import als JSON, Druckansicht für Termine",
             ]}
             primaryLabel="Beratermodus testen"
@@ -148,23 +148,23 @@ export function LandingPage() {
       <section className="mx-auto max-w-4xl px-4 py-10 sm:px-6">
         <div className="rounded-3xl bg-gradient-to-br from-brand-600 to-brand-800 px-6 py-10 text-center text-white shadow-card-lg">
           <h2 className="text-2xl font-semibold tracking-tight sm:text-3xl">
-            Bereit, deine Entscheidungen zu sehen?
+            Bereit, finanziell aufzusteigen?
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-white/80">
-            Lege in 2 Minuten deine eigene Planung an oder sieh dir das Demo-Szenario an.
+            Leg in 2 Minuten los – future you sagt jetzt schon danke.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button
               onClick={startOnboarding}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-base font-medium text-brand-700 transition-colors hover:bg-brand-50"
             >
-              <Play className="h-4 w-4" /> Kostenlos starten
+              <Rocket className="h-4 w-4" /> Jetzt ETF-maxxen
             </button>
             <button
               onClick={() => openBeta("private")}
               className="rounded-xl border border-white/30 px-6 py-3 text-base font-medium text-white transition-colors hover:bg-white/10"
             >
-              Beta-Zugang anfragen
+              Beta-Zugang sichern
             </button>
           </div>
         </div>

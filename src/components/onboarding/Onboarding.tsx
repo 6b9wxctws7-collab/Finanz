@@ -181,7 +181,7 @@ export function Onboarding() {
                 </span>
               </div>
               <h2 className="mt-4 text-center text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">
-                Dein Plan ist startklar
+                Let&apos;s gooo – dein Plan steht
               </h2>
               <p className="mt-2 text-center text-base text-ink-500">
                 Das hast du eingegeben – jederzeit änderbar:
@@ -253,10 +253,10 @@ export function Onboarding() {
 
 function WelcomeStep() {
   const benefits = [
-    { icon: LineChart, text: "Sieh deine Vermögenskurve bis zur Rente – Monat für Monat berechnet." },
-    { icon: Target, text: "Erkenne, wann du 100.000, 500.000 und 1 Mio. erreichst." },
-    { icon: CalendarClock, text: "Spiele Auto, Wohnung, Teilzeit oder Gehaltserhöhung durch." },
-    { icon: ShoppingCart, text: "Verstehe den echten Wert deines Geldes – nach Inflation." },
+    { icon: LineChart, text: "Deine Vermögenskurve bis zur Rente – Monat für Monat, kein Vibe-Guessing." },
+    { icon: Target, text: "Sieh, wann du 100k, 500k und die erste Mio. knackst." },
+    { icon: CalendarClock, text: "Spiele Auto, Wohnung, Teilzeit oder Sabbatical durch." },
+    { icon: ShoppingCart, text: "Der echte Wert nach Inflation – ohne Copium." },
   ];
   return (
     <div className="text-center">
@@ -264,14 +264,14 @@ function WelcomeStep() {
         <Logo size={52} />
       </div>
       <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-        <Sparkles className="h-3.5 w-3.5 animate-pulse" /> In 2 Minuten startklar
+        <Sparkles className="h-3.5 w-3.5 animate-pulse" /> In 2 Minuten startklar · no cap
       </span>
       <h2 className="mt-4 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
-        Plane deine finanzielle Zukunft
+        Lass uns dein Depot maxxen
       </h2>
       <p className="mx-auto mt-3 max-w-md text-base text-ink-500">
-        Beantworte ein paar kurze Fragen – danach siehst du sofort, wie sich deine
-        Entscheidungen über die Jahre auswirken.
+        Ein paar schnelle Fragen – danach siehst du sofort, wie deine Entscheidungen
+        dein Vermögen über die Jahre cooken (oder grillen).
       </p>
       <ul className="stagger-children mx-auto mt-8 grid max-w-xl gap-3 text-left sm:grid-cols-2">
         {benefits.map((b, i) => {
