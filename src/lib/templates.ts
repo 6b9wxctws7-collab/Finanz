@@ -1,10 +1,22 @@
+import {
+  Baby,
+  Banknote,
+  Car,
+  GraduationCap,
+  Home,
+  Hourglass,
+  LucideIcon,
+  Plane,
+  TrendingDown,
+  TrendingUp,
+} from "lucide-react";
 import { uid } from "./id";
 import { LifeEvent } from "./types";
 
 export interface EventTemplate {
   key: string;
   label: string;
-  emoji: string;
+  icon: LucideIcon;
   description: string;
   /** Erzeugt eine oder mehrere konkrete Ereignisse aus dem Template. */
   build: (age: number) => LifeEvent[];
@@ -22,7 +34,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "car",
     label: "Auto kaufen",
-    emoji: "🚗",
+    icon: Car,
     description: "Einmaliger Kaufpreis plus laufende monatliche Kosten.",
     build: (age) => [
       base({
@@ -48,7 +60,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "raise",
     label: "Gehaltserhöhung",
-    emoji: "📈",
+    icon: TrendingUp,
     description: "Dauerhaft höheres Einkommen pro Monat.",
     build: (age) => [
       base({
@@ -65,7 +77,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "home",
     label: "Wohnung kaufen",
-    emoji: "🏠",
+    icon: Home,
     description: "Eigenkapitalabfluss beim Immobilienkauf.",
     build: (age) => [
       base({
@@ -82,7 +94,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "parttime",
     label: "Teilzeit",
-    emoji: "🌴",
+    icon: Hourglass,
     description: "Einkommensreduktion, z. B. auf 80 %.",
     build: (age) => [
       base({
@@ -99,7 +111,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "sabbatical",
     label: "Sabbatical",
-    emoji: "✈️",
+    icon: Plane,
     description: "Ein Jahr ohne Einkommen (-100 % für 12 Monate).",
     build: (age) => [
       base({
@@ -117,7 +129,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "child",
     label: "Kind",
-    emoji: "🍼",
+    icon: Baby,
     description: "Laufende Mehrkosten für 18 Jahre.",
     build: (age) => [
       base({
@@ -135,7 +147,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "education",
     label: "Weiterbildung",
-    emoji: "🎓",
+    icon: GraduationCap,
     description: "Einmalige Investition in Bildung.",
     build: (age) => [
       base({
@@ -152,7 +164,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "lumpsum",
     label: "Einmalanlage",
-    emoji: "💰",
+    icon: Banknote,
     description: "Einmaliger Geldzufluss, z. B. Bonus oder Erbe.",
     build: (age) => [
       base({
@@ -169,7 +181,7 @@ export const eventTemplates: EventTemplate[] = [
   {
     key: "crash",
     label: "Börsencrash",
-    emoji: "📉",
+    icon: TrendingDown,
     description: "Einmaliger Depotverlust, z. B. -30 %.",
     build: (age) => [
       base({

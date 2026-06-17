@@ -31,7 +31,9 @@ export function Timeline() {
                     }
                     style={{ height: h }}
                   />
-                  {hasEvent && <span className="absolute -top-4 text-[10px]">●</span>}
+                  {hasEvent && (
+                    <span className="absolute -top-3 h-2 w-2 rounded-full bg-brand-500 ring-2 ring-white" />
+                  )}
                   {/* Tooltip */}
                   <div className="pointer-events-none absolute bottom-full z-10 mb-5 hidden w-44 -translate-x-0 rounded-lg bg-ink-900 px-2.5 py-1.5 text-[11px] text-white shadow-lg group-hover:block">
                     <div className="font-semibold">Alter {y.age}</div>

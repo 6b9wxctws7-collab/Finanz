@@ -9,6 +9,7 @@ import { Budget, BudgetGroup, SavingsMode } from "@/lib/types";
 import { Card, CardHeader, Field, Segmented } from "./ui/primitives";
 import { NumberInput } from "./ui/NumberInput";
 import { KpiCard } from "./KpiCard";
+import { AlertTriangle, BadgeCheck, Briefcase, Calculator, Receipt } from "lucide-react";
 
 export function BudgetPlanner() {
   const { activeScenario, updateActiveScenario } = usePlan();
@@ -69,28 +70,34 @@ export function BudgetPlanner() {
         </Card>
 
         <div className="grid grid-cols-2 gap-3 lg:col-span-2">
-          <KpiCard label="Nettoeinkommen" value={formatCurrency(activeScenario.start.netIncome, cur)} emoji="💼" />
-          <KpiCard label="Summe Ausgaben" value={formatCurrency(expenses, cur)} emoji="🧾" />
+          <KpiCard label="Nettoeinkommen" value={formatCurrency(activeScenario.start.netIncome, cur)} icon={Briefcase} />
+          <KpiCard label="Summe Ausgaben" value={formatCurrency(expenses, cur)} icon={Receipt} />
           <KpiCard
             label="Budgetbasierte Sparrate"
             value={formatCurrency(budgetRate, cur)}
             tone={budgetRate < 0 ? "amber" : "default"}
-            sub={budgetRate < 0 ? "⚠️ Ausgaben > Einkommen" : undefined}
-            emoji="📊"
+            sub={
+              budgetRate < 0 ? (
+                <span className="inline-flex items-center gap-1 text-amber-700">
+                  <AlertTriangle className="h-3.5 w-3.5" /> Ausgaben &gt; Einkommen
+                </span>
+              ) : undefined
+            }
+            icon={Calculator}
           />
           <KpiCard
             label="In Simulation aktiv"
             value={formatCurrency(effectiveRate, cur)}
             tone="brand"
             sub={activeScenario.savingsMode === "fixed" ? "feste Sparrate" : "budgetbasiert"}
-            emoji="✅"
+            icon={BadgeCheck}
           />
         </div>
       </div>
 
       {budgetRate < 0 && activeScenario.savingsMode === "budget" && (
         <div className="flex items-start gap-2 rounded-xl border border-red-200 bg-red-50 px-4 py-2.5 text-sm text-red-700">
-          <span>⚠️</span>
+          <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
           <span>
             Deine Ausgaben übersteigen dein Einkommen. Die Sparrate ist negativ – dein
             Vermögen würde langfristig schrumpfen.

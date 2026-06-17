@@ -4,6 +4,7 @@ import { useState } from "react";
 import { saveBetaLead, UserRole } from "@/lib/feedback";
 import { Modal } from "./ui/Modal";
 import { Button, Field, Select, TextInput } from "./ui/primitives";
+import { MailCheck } from "lucide-react";
 
 export function BetaRequestModal({
   open,
@@ -43,7 +44,7 @@ export function BetaRequestModal({
     <Modal open={open} onClose={close} title="Beta-Zugang anfragen">
       {done ? (
         <div className="space-y-4 text-center">
-          <div className="text-4xl">📬</div>
+          <MailCheck className="mx-auto h-10 w-10 text-emerald-500" strokeWidth={1.5} />
           <p className="text-sm text-ink-700">
             Danke! Deine Anfrage ist gespeichert. Wir melden uns, sobald ein Beta-Platz frei wird.
           </p>

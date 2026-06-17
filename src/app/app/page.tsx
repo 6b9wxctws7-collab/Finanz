@@ -14,17 +14,27 @@ import { AdvisorMode } from "@/components/AdvisorMode";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { Button } from "@/components/ui/primitives";
 import { LogoMark } from "@/components/ui/Logo";
+import {
+  CalendarClock,
+  GitCompare,
+  LayoutDashboard,
+  LineChart,
+  LucideIcon,
+  Presentation,
+  Settings,
+  Wallet,
+} from "lucide-react";
 
 type TabKey = "dashboard" | "start" | "budget" | "timeline" | "events" | "compare" | "advisor";
 
-const tabs: { key: TabKey; label: string; emoji: string }[] = [
-  { key: "dashboard", label: "Dashboard", emoji: "📊" },
-  { key: "start", label: "Startdaten", emoji: "⚙️" },
-  { key: "budget", label: "Budget", emoji: "🧾" },
-  { key: "timeline", label: "Timeline", emoji: "📈" },
-  { key: "events", label: "Lebensereignisse", emoji: "🎯" },
-  { key: "compare", label: "Vergleich", emoji: "🔀" },
-  { key: "advisor", label: "Beratermodus", emoji: "👔" },
+const tabs: { key: TabKey; label: string; icon: LucideIcon }[] = [
+  { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { key: "start", label: "Startdaten", icon: Settings },
+  { key: "budget", label: "Budget", icon: Wallet },
+  { key: "timeline", label: "Timeline", icon: LineChart },
+  { key: "events", label: "Lebensereignisse", icon: CalendarClock },
+  { key: "compare", label: "Vergleich", icon: GitCompare },
+  { key: "advisor", label: "Beratermodus", icon: Presentation },
 ];
 
 export default function StudioPage() {
@@ -71,19 +81,22 @@ export default function StudioPage() {
 
       {/* Navigation */}
       <nav className="mb-6 flex gap-1 overflow-x-auto rounded-2xl border border-ink-100 bg-white p-1.5 shadow-card">
-        {tabs.map((t) => (
-          <button
-            key={t.key}
-            onClick={() => setTab(t.key)}
-            className={cn(
-              "flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-colors",
-              tab === t.key ? "bg-brand-600 text-white shadow-sm" : "text-ink-600 hover:bg-ink-100",
-            )}
-          >
-            <span>{t.emoji}</span>
-            <span className="hidden sm:inline">{t.label}</span>
-          </button>
-        ))}
+        {tabs.map((t) => {
+          const Icon = t.icon;
+          return (
+            <button
+              key={t.key}
+              onClick={() => setTab(t.key)}
+              className={cn(
+                "flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-colors",
+                tab === t.key ? "bg-brand-600 text-white shadow-sm" : "text-ink-600 hover:bg-ink-100",
+              )}
+            >
+              <Icon className="h-4 w-4" strokeWidth={2} />
+              <span className="hidden sm:inline">{t.label}</span>
+            </button>
+          );
+        })}
       </nav>
 
       {/* Inhalt */}

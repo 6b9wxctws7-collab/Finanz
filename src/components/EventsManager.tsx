@@ -8,6 +8,7 @@ import { emptyEvent, eventTemplates, eventTypeLabels } from "@/lib/templates";
 import { EventType, LifeEvent, Recurrence, Scenario } from "@/lib/types";
 import { Button, Card, CardHeader, Field, Select, Badge } from "./ui/primitives";
 import { NumberInput } from "./ui/NumberInput";
+import { Inbox, Plus, Trash2 } from "lucide-react";
 
 export function EventsManager() {
   const { activeScenario, updateActiveScenario } = usePlan();
@@ -41,21 +42,26 @@ export function EventsManager() {
       <Card>
         <CardHeader title="Vorlagen" subtitle="Mit einem Klick ein typisches Lebensereignis hinzufügen" />
         <div className="grid grid-cols-2 gap-2.5 px-5 py-4 sm:grid-cols-3 lg:grid-cols-5">
-          {eventTemplates.map((t) => (
-            <button
-              key={t.key}
-              onClick={() => addEvents(t.build(suggestAge(activeScenario)))}
-              className="flex flex-col items-start gap-1 rounded-xl border border-ink-200 bg-white p-3 text-left transition-colors hover:border-brand-300 hover:bg-brand-50"
-            >
-              <span className="text-xl">{t.emoji}</span>
-              <span className="text-sm font-medium text-ink-900">{t.label}</span>
-              <span className="text-[11px] leading-snug text-ink-400">{t.description}</span>
-            </button>
-          ))}
+          {eventTemplates.map((t) => {
+            const Icon = t.icon;
+            return (
+              <button
+                key={t.key}
+                onClick={() => addEvents(t.build(suggestAge(activeScenario)))}
+                className="flex flex-col items-start gap-1 rounded-xl border border-ink-200 bg-white p-3 text-left transition-colors hover:border-brand-300 hover:bg-brand-50"
+              >
+                <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                  <Icon className="h-4 w-4" strokeWidth={2} />
+                </span>
+                <span className="text-sm font-medium text-ink-900">{t.label}</span>
+                <span className="text-[11px] leading-snug text-ink-400">{t.description}</span>
+              </button>
+            );
+          })}
         </div>
         <div className="border-t border-ink-100 px-5 py-3">
           <Button variant="ghost" onClick={() => addEvents([emptyEvent(suggestAge(activeScenario))])}>
-            + Eigenes Ereignis manuell anlegen
+            <Plus className="h-4 w-4" /> Eigenes Ereignis manuell anlegen
           </Button>
         </div>
       </Card>
@@ -64,7 +70,7 @@ export function EventsManager() {
       {sorted.length === 0 ? (
         <Card>
           <div className="flex flex-col items-center justify-center gap-2 px-5 py-12 text-center">
-            <span className="text-3xl">📭</span>
+            <Inbox className="h-8 w-8 text-ink-300" strokeWidth={1.5} />
             <p className="text-sm font-medium text-ink-700">Noch keine Lebensereignisse</p>
             <p className="max-w-sm text-xs text-ink-400">
               Füge oben eine Vorlage hinzu oder lege ein eigenes Ereignis an, um zu sehen,
@@ -202,7 +208,7 @@ function EventRow({
               aktiv
             </label>
             <Button variant="danger" onClick={onRemove} className="px-2.5 py-1.5">
-              Löschen
+              <Trash2 className="h-3.5 w-3.5" /> Löschen
             </Button>
           </div>
         </div>

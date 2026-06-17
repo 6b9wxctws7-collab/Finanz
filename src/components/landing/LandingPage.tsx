@@ -6,6 +6,8 @@ import { usePlan } from "@/lib/store";
 import { Button } from "@/components/ui/primitives";
 import { Logo } from "@/components/ui/Logo";
 import { BetaRequestModal } from "@/components/BetaRequestModal";
+import { Briefcase, Check, Globe, Play, UserRound } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import { Disclaimer } from "@/components/Disclaimer";
 import { UserRole } from "@/lib/feedback";
 
@@ -45,7 +47,7 @@ export function LandingPage() {
         <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-brand-200/50 to-emerald-100/40 blur-3xl" />
         <div className="relative mx-auto max-w-4xl px-4 pb-12 pt-10 text-center sm:px-6 sm:pt-16">
           <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
-            🇩🇪 🇨🇭 Für Deutschland & die Schweiz · Beta
+            <Globe className="h-3.5 w-3.5" /> Für Deutschland &amp; die Schweiz · Beta
           </span>
           <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl">
             Zeige in 5 Minuten, wie Auto, Wohnung,{" "}
@@ -60,7 +62,7 @@ export function LandingPage() {
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button variant="primary" onClick={startDemo} className="px-6 py-3 text-base">
-              ▶ Demo starten
+              <Play className="h-4 w-4" /> Demo starten
             </Button>
             <Button variant="secondary" onClick={() => openBeta("private")} className="px-6 py-3 text-base">
               Beta-Zugang anfragen
@@ -91,7 +93,7 @@ export function LandingPage() {
         </p>
         <div className="grid gap-4 md:grid-cols-2">
           <AudienceCard
-            emoji="🧑‍💻"
+            icon={UserRound}
             title="Privatnutzer"
             tagline="Verstehe deine finanzielle Zukunft"
             points={[
@@ -105,7 +107,7 @@ export function LandingPage() {
             onSecondary={() => openBeta("private")}
           />
           <AudienceCard
-            emoji="👔"
+            icon={Briefcase}
             title="Finanzberater & Coaches"
             tagline="Beratung, die deine Kunden verstehen"
             highlight
@@ -134,9 +136,9 @@ export function LandingPage() {
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button
               onClick={startDemo}
-              className="rounded-xl bg-white px-6 py-3 text-base font-medium text-brand-700 transition-colors hover:bg-brand-50"
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-base font-medium text-brand-700 transition-colors hover:bg-brand-50"
             >
-              ▶ Demo starten
+              <Play className="h-4 w-4" /> Demo starten
             </button>
             <button
               onClick={() => openBeta("private")}
@@ -174,7 +176,7 @@ function Step({ n, title, text }: { n: string; title: string; text: string }) {
 }
 
 function AudienceCard({
-  emoji,
+  icon: Icon,
   title,
   tagline,
   points,
@@ -184,7 +186,7 @@ function AudienceCard({
   onSecondary,
   highlight,
 }: {
-  emoji: string;
+  icon: LucideIcon;
   title: string;
   tagline: string;
   points: string[];
@@ -202,7 +204,9 @@ function AudienceCard({
       }
     >
       <div className="flex items-center gap-3">
-        <span className="text-3xl">{emoji}</span>
+        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+          <Icon className="h-6 w-6" strokeWidth={2} />
+        </span>
         <div>
           <h3 className="text-lg font-semibold text-ink-900">{title}</h3>
           <p className="text-sm text-ink-500">{tagline}</p>
@@ -211,7 +215,7 @@ function AudienceCard({
       <ul className="mt-4 flex-1 space-y-2">
         {points.map((p, i) => (
           <li key={i} className="flex items-start gap-2 text-sm text-ink-700">
-            <span className="mt-0.5 text-emerald-500">✓</span>
+            <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-500" />
             <span>{p}</span>
           </li>
         ))}

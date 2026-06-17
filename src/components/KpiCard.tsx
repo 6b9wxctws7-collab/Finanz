@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/cn";
 import { ReactNode } from "react";
+import { LucideIcon } from "lucide-react";
 import { InfoTip } from "./ui/primitives";
 
 export function KpiCard({
@@ -10,14 +11,14 @@ export function KpiCard({
   sub,
   hint,
   tone = "default",
-  emoji,
+  icon: Icon,
 }: {
   label: string;
   value: ReactNode;
   sub?: ReactNode;
   hint?: string;
   tone?: "default" | "brand" | "green" | "amber";
-  emoji?: string;
+  icon?: LucideIcon;
 }) {
   const tones = {
     default: "bg-white border-ink-100",
@@ -29,7 +30,7 @@ export function KpiCard({
   return (
     <div className={cn("rounded-2xl border p-4 shadow-card", tones[tone])}>
       <div className="flex items-center gap-1.5">
-        {emoji && <span className="text-sm">{emoji}</span>}
+        {Icon && <Icon className={cn("h-4 w-4", isDark ? "text-white/80" : "text-ink-400")} strokeWidth={2} />}
         <span className={cn("text-xs font-medium", isDark ? "text-white/80" : "text-ink-500")}>
           {label}
         </span>

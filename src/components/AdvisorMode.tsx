@@ -8,6 +8,7 @@ import { Plan } from "@/lib/types";
 import { Button, Card, CardHeader, Field, TextInput } from "./ui/primitives";
 import { WealthChart } from "./WealthChart";
 import { Disclaimer } from "./Disclaimer";
+import { Download, Printer, Upload } from "lucide-react";
 
 export function AdvisorMode() {
   const { plan, activeScenario, setAdvisor, importPlan } = usePlan();
@@ -63,13 +64,13 @@ export function AdvisorMode() {
           </div>
           <div className="flex flex-wrap gap-2 border-t border-ink-100 px-5 py-4">
             <Button variant="primary" onClick={() => window.print()}>
-              🖨️ Druckansicht / PDF
+              <Printer className="h-4 w-4" /> Druckansicht / PDF
             </Button>
             <Button variant="secondary" onClick={exportJson}>
-              ⬇️ Export als JSON
+              <Download className="h-4 w-4" /> Export als JSON
             </Button>
             <Button variant="secondary" onClick={() => fileRef.current?.click()}>
-              ⬆️ Import aus JSON
+              <Upload className="h-4 w-4" /> Import aus JSON
             </Button>
             <input
               ref={fileRef}

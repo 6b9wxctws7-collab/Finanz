@@ -4,6 +4,15 @@ import { useState } from "react";
 import { PriceChoice, saveFeedback, UserRole, WouldPay } from "@/lib/feedback";
 import { cn } from "@/lib/cn";
 import { Button, Card, CardHeader } from "./ui/primitives";
+import {
+  Briefcase,
+  CheckCircle2,
+  HelpCircle,
+  LucideIcon,
+  ThumbsDown,
+  ThumbsUp,
+  UserRound,
+} from "lucide-react";
 
 const priceOptions: { value: PriceChoice; label: string }[] = [
   { value: "19", label: "19 € einmalig" },
@@ -34,7 +43,7 @@ export function FeedbackWidget() {
     return (
       <Card className="border-emerald-200">
         <div className="flex flex-col items-center gap-2 px-5 py-8 text-center">
-          <span className="text-3xl">🙏</span>
+          <CheckCircle2 className="h-9 w-9 text-emerald-500" strokeWidth={1.5} />
           <p className="text-sm font-medium text-ink-800">Danke für dein Feedback!</p>
           <p className="max-w-sm text-xs text-ink-400">
             Es hilft uns zu entscheiden, ob und wie wir MoneyTimeline Studio weiterbauen.
@@ -57,15 +66,18 @@ export function FeedbackWidget() {
           <div className="flex flex-wrap gap-2">
             {(
               [
-                { v: "yes", l: "👍 Ja" },
-                { v: "maybe", l: "🤔 Vielleicht" },
-                { v: "no", l: "👎 Nein" },
-              ] as { v: WouldPay; l: string }[]
-            ).map((o) => (
-              <Chip key={o.v} active={wouldPay === o.v} onClick={() => setWouldPay(o.v)}>
-                {o.l}
-              </Chip>
-            ))}
+                { v: "yes", l: "Ja", icon: ThumbsUp },
+                { v: "maybe", l: "Vielleicht", icon: HelpCircle },
+                { v: "no", l: "Nein", icon: ThumbsDown },
+              ] as { v: WouldPay; l: string; icon: LucideIcon }[]
+            ).map((o) => {
+              const Icon = o.icon;
+              return (
+                <Chip key={o.v} active={wouldPay === o.v} onClick={() => setWouldPay(o.v)}>
+                  <Icon className="h-4 w-4" /> {o.l}
+                </Chip>
+              );
+            })}
           </div>
         </div>
 
@@ -88,10 +100,10 @@ export function FeedbackWidget() {
           <p className="mb-2 text-sm font-medium text-ink-800">Du nutzt das als …</p>
           <div className="flex flex-wrap gap-2">
             <Chip active={role === "private"} onClick={() => setRole("private")}>
-              🧑‍💻 Privatperson
+              <UserRound className="h-4 w-4" /> Privatperson
             </Chip>
             <Chip active={role === "advisor"} onClick={() => setRole("advisor")}>
-              👔 Berater:in / Coach
+              <Briefcase className="h-4 w-4" /> Berater:in / Coach
             </Chip>
           </div>
         </div>
@@ -132,7 +144,7 @@ function Chip({
     <button
       onClick={onClick}
       className={cn(
-        "rounded-xl border px-3.5 py-2 text-sm font-medium transition-colors",
+        "inline-flex items-center gap-1.5 rounded-xl border px-3.5 py-2 text-sm font-medium transition-colors",
         active
           ? "border-brand-500 bg-brand-50 text-brand-700"
           : "border-ink-200 bg-white text-ink-600 hover:bg-ink-50",

@@ -9,6 +9,17 @@ import { KpiCard } from "./KpiCard";
 import { WealthChart } from "./WealthChart";
 import { Card, CardHeader } from "./ui/primitives";
 import { Disclaimer } from "./Disclaimer";
+import {
+  AlertTriangle,
+  Cake,
+  Flag,
+  Landmark,
+  PiggyBank,
+  Rocket,
+  ShoppingCart,
+  Target,
+  Trophy,
+} from "lucide-react";
 
 export function Dashboard() {
   const { activeScenario } = usePlan();
@@ -24,17 +35,25 @@ export function Dashboard() {
     <div className="space-y-5">
       {/* Kennzahlenkarten */}
       <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
-        <KpiCard label="Aktuelles Alter" value={`${activeScenario.start.currentAge} J.`} emoji="🎂" />
+        <KpiCard label="Aktuelles Alter" value={`${activeScenario.start.currentAge} J.`} icon={Cake} />
         <KpiCard
           label="Aktuelles Vermögen"
           value={formatCurrency(activeScenario.start.startWealth, cur)}
-          emoji="🏦"
+          icon={Landmark}
         />
         <KpiCard
           label="Monatliche Sparrate"
           value={formatCurrency(result.initialMonthlySavings, cur)}
-          sub={result.initialMonthlySavings < 0 ? "⚠️ negativ" : "investiert pro Monat"}
-          emoji="💸"
+          sub={
+            result.initialMonthlySavings < 0 ? (
+              <span className="inline-flex items-center gap-1 text-amber-700">
+                <AlertTriangle className="h-3.5 w-3.5" /> negativ
+              </span>
+            ) : (
+              "investiert pro Monat"
+            )
+          }
+          icon={PiggyBank}
           tone={result.initialMonthlySavings < 0 ? "amber" : "default"}
         />
         <KpiCard
@@ -42,7 +61,7 @@ export function Dashboard() {
           value={formatCurrency(result.finalWealth, cur)}
           sub="nominal"
           tone="brand"
-          emoji="🎯"
+          icon={Target}
         />
         <KpiCard
           label="Inflationsbereinigt"
@@ -50,15 +69,11 @@ export function Dashboard() {
           sub="heutige Kaufkraft"
           tone="green"
           hint="Endvermögen abgezinst mit der angenommenen Inflation – was es in heutigem Geld wert wäre."
-          emoji="🛒"
+          icon={ShoppingCart}
         />
-        <KpiCard
-          label="100.000 erreicht mit"
-          value={formatAge(result.ageAt100k)}
-          emoji="💯"
-        />
-        <KpiCard label="500.000 erreicht mit" value={formatAge(result.ageAt500k)} emoji="🚀" />
-        <KpiCard label="1 Mio. erreicht mit" value={formatAge(result.ageAt1m)} emoji="🏆" />
+        <KpiCard label="100.000 erreicht mit" value={formatAge(result.ageAt100k)} icon={Flag} />
+        <KpiCard label="500.000 erreicht mit" value={formatAge(result.ageAt500k)} icon={Rocket} />
+        <KpiCard label="1 Mio. erreicht mit" value={formatAge(result.ageAt1m)} icon={Trophy} />
       </div>
 
       {/* Nächstes Ereignis + Warnungen */}
@@ -107,7 +122,7 @@ export function Dashboard() {
               key={i}
               className="flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 px-4 py-2.5 text-sm text-amber-800"
             >
-              <span>⚠️</span>
+              <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
               <span>{w.text}</span>
             </div>
           ))}

@@ -6,6 +6,7 @@ import { usePlan } from "@/lib/store";
 import { formatAge, formatCurrency } from "@/lib/format";
 import { Currency } from "@/lib/types";
 import { Button, Card, CardHeader, Badge } from "./ui/primitives";
+import { CopyPlus, Trash2 } from "lucide-react";
 
 export function ScenarioCompare() {
   const { plan, duplicateScenario, deleteScenario, setBaseline, setActiveScenarioId } = usePlan();
@@ -83,7 +84,7 @@ export function ScenarioCompare() {
                     <td className="px-4 py-3">
                       <div className="flex justify-end gap-1.5">
                         <Button variant="ghost" className="px-2 py-1 text-xs" onClick={() => duplicateScenario(scenario.id)}>
-                          Kopie
+                          <CopyPlus className="h-3.5 w-3.5" /> Kopie
                         </Button>
                         {!isBase && (
                           <Button variant="ghost" className="px-2 py-1 text-xs" onClick={() => setBaseline(scenario.id)}>
@@ -91,8 +92,13 @@ export function ScenarioCompare() {
                           </Button>
                         )}
                         {plan.scenarios.length > 1 && (
-                          <Button variant="danger" className="px-2 py-1 text-xs" onClick={() => deleteScenario(scenario.id)}>
-                            ✕
+                          <Button
+                            variant="danger"
+                            className="px-2 py-1 text-xs"
+                            onClick={() => deleteScenario(scenario.id)}
+                            aria-label="Szenario löschen"
+                          >
+                            <Trash2 className="h-3.5 w-3.5" />
                           </Button>
                         )}
                       </div>
