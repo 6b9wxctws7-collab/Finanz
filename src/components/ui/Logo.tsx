@@ -1,10 +1,35 @@
-import { useId } from "react";
+"use client";
+
+import { useId, useState } from "react";
 import { cn } from "@/lib/cn";
 
-/** Reine Bildmarke (das Diagramm-Icon im abgerundeten Rahmen). */
+/**
+ * Reine Bildmarke (das Diagramm-Icon im abgerundeten Rahmen).
+ *
+ * Liegt eine echte Bilddatei unter /logo-mark.png im public-Ordner, wird diese
+ * automatisch verwendet. Andernfalls (oder bei Ladefehler) greift die
+ * gestochen scharfe SVG-Nachbildung als Fallback.
+ */
 export function LogoMark({ size = 40, className }: { size?: number; className?: string }) {
+  const [pngFailed, setPngFailed] = useState(false);
   // Eindeutige Gradient-IDs, damit mehrere Instanzen im selben Dokument nicht kollidieren.
   const uid = useId().replace(/:/g, "");
+
+  if (!pngFailed) {
+    // eslint-disable-next-line @next/next/no-img-element
+    return (
+      <img
+        src="/logo-mark.png"
+        alt="MoneyTimeline Studio"
+        width={size}
+        height={size}
+        onError={() => setPngFailed(true)}
+        className={className}
+        style={{ width: size, height: size, objectFit: "contain" }}
+      />
+    );
+  }
+
   const frame = `mtFrame-${uid}`;
   const bar = `mtBar-${uid}`;
   const line = `mtLine-${uid}`;
