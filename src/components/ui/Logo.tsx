@@ -1,37 +1,19 @@
-"use client";
-
-import { useId, useState } from "react";
+import { useId } from "react";
 import { cn } from "@/lib/cn";
 
 /**
  * Reine Bildmarke (das Diagramm-Icon im abgerundeten Rahmen).
  *
- * Liegt eine echte Bilddatei unter /logo-mark.png im public-Ordner, wird diese
- * automatisch verwendet. Andernfalls (oder bei Ladefehler) greift die
- * gestochen scharfe SVG-Nachbildung als Fallback.
+ * Wird bewusst inline als SVG gerendert – nie über <img>. So kann der Browser
+ * kein „kaputtes Bild“ (Fragezeichen) anzeigen und das Logo ist sofort da,
+ * unabhängig vom Laden externer Dateien. Hält public/logo-mark.svg gespiegelt.
  */
 export function LogoMark({ size = 40, className }: { size?: number; className?: string }) {
-  const [pngFailed, setPngFailed] = useState(false);
-  // Eindeutige Gradient-IDs, damit mehrere Instanzen im selben Dokument nicht kollidieren.
+  // Eindeutige Gradient-IDs, damit mehrere Instanzen nicht kollidieren.
   const uid = useId().replace(/:/g, "");
-
-  if (!pngFailed) {
-    // eslint-disable-next-line @next/next/no-img-element
-    return (
-      <img
-        src="/logo-mark.png"
-        alt="ETFMaxxing"
-        width={size}
-        height={size}
-        onError={() => setPngFailed(true)}
-        className={className}
-        style={{ width: size, height: size, objectFit: "contain" }}
-      />
-    );
-  }
-
   const frame = `mtFrame-${uid}`;
-  const bar = `mtBar-${uid}`;
+  const barBlue = `mtBarBlue-${uid}`;
+  const barTeal = `mtBarTeal-${uid}`;
   const line = `mtLine-${uid}`;
   return (
     <svg
@@ -48,11 +30,15 @@ export function LogoMark({ size = 40, className }: { size?: number; className?: 
           <stop offset="0" stopColor="#19b8cf" />
           <stop offset="1" stopColor="#2f7df0" />
         </linearGradient>
-        <linearGradient id={bar} x1="32" y1="25" x2="32" y2="47" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#50a4f7" />
+        <linearGradient id={barBlue} x1="32" y1="22" x2="32" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#4f9ff7" />
           <stop offset="1" stopColor="#2563eb" />
         </linearGradient>
-        <linearGradient id={line} x1="15" y1="42" x2="46" y2="20" gradientUnits="userSpaceOnUse">
+        <linearGradient id={barTeal} x1="44" y1="20" x2="44" y2="48" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#22c7d6" />
+          <stop offset="1" stopColor="#1aa6c4" />
+        </linearGradient>
+        <linearGradient id={line} x1="15" y1="42" x2="46" y2="19" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#2f7df0" />
           <stop offset="1" stopColor="#16b8cf" />
         </linearGradient>
@@ -64,20 +50,23 @@ export function LogoMark({ size = 40, className }: { size?: number; className?: 
         strokeWidth="3.2"
         strokeLinecap="round"
       />
-      <rect x="18" y="40" width="6" height="7" rx="1.6" fill={`url(#${bar})`} />
-      <rect x="27.5" y="34" width="6" height="13" rx="1.6" fill={`url(#${bar})`} />
-      <rect x="37" y="27" width="6" height="20" rx="1.6" fill={`url(#${bar})`} />
+      {/* Balken: drei blau aufsteigend, rechts der höchste in teal */}
+      <rect x="16.5" y="39" width="5.5" height="9" rx="1.5" fill={`url(#${barBlue})`} />
+      <rect x="24.5" y="34" width="5.5" height="14" rx="1.5" fill={`url(#${barBlue})`} />
+      <rect x="32.5" y="28" width="5.5" height="20" rx="1.5" fill={`url(#${barBlue})`} />
+      <rect x="40.5" y="22" width="5.5" height="26" rx="1.5" fill={`url(#${barTeal})`} />
+      {/* Linie mit Knoten */}
       <polyline
-        points="17,41 26,34 34,30 45,21"
+        points="16,41 24,35 32,30 44,20"
         stroke={`url(#${line})`}
-        strokeWidth="2.6"
+        strokeWidth="2.4"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="17" cy="41" r="3" fill="#2f7df0" />
-      <circle cx="26" cy="34" r="3" fill="#2f7df0" />
-      <circle cx="34" cy="30" r="3" fill="#2a9fd6" />
-      <circle cx="45" cy="21" r="3.6" fill="#16b8cf" />
+      <circle cx="16" cy="41" r="2.9" fill="#2f7df0" />
+      <circle cx="24" cy="35" r="2.9" fill="#2f7df0" />
+      <circle cx="32" cy="30" r="2.9" fill="#2a9fd6" />
+      <circle cx="44" cy="20" r="3.4" fill="#16b8cf" />
     </svg>
   );
 }
