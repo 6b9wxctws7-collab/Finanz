@@ -15,7 +15,6 @@ import {
   Flag,
   Landmark,
   PiggyBank,
-  Rocket,
   ShoppingCart,
   Target,
   Trophy,
@@ -56,23 +55,31 @@ export function Dashboard() {
           icon={PiggyBank}
           tone={result.initialMonthlySavings < 0 ? "amber" : "default"}
         />
-        <KpiCard
-          label={`Endvermögen mit ${activeScenario.start.targetAge}`}
-          value={formatCurrency(result.finalWealth, cur)}
-          sub="nominal"
-          tone="brand"
-          icon={Target}
-        />
-        <KpiCard
-          label="Inflationsbereinigt"
-          value={formatCurrency(result.finalRealWealth, cur)}
-          sub="heutige Kaufkraft"
-          tone="green"
-          hint="Endvermögen abgezinst mit der angenommenen Inflation – was es in heutigem Geld wert wäre."
-          icon={ShoppingCart}
-        />
+        {/* Endvermögen: nominal groß, inflationsbereinigte Kaufkraft direkt darunter */}
+        <div className="rounded-2xl border border-brand-700 bg-gradient-to-br from-brand-600 to-brand-700 p-4 text-white shadow-card">
+          <div className="flex items-center gap-1.5">
+            <Target className="h-4 w-4 text-white/90" strokeWidth={2.25} />
+            <span className="text-xs font-medium text-white/80">
+              Endvermögen mit {activeScenario.start.targetAge}
+            </span>
+          </div>
+          <div className="mt-1.5 text-2xl font-semibold tracking-tight">
+            {formatCurrency(result.finalWealth, cur)}
+          </div>
+          <div className="text-xs text-white/70">nominal</div>
+
+          <div className="mt-3 flex items-center gap-2 rounded-xl bg-white/10 px-3 py-2 ring-1 ring-inset ring-white/15">
+            <ShoppingCart className="h-4 w-4 shrink-0 text-white/90" strokeWidth={2} />
+            <div className="min-w-0">
+              <div className="text-base font-semibold leading-tight">
+                {formatCurrency(result.finalRealWealth, cur)}
+              </div>
+              <div className="text-[11px] leading-tight text-white/75">heutige Kaufkraft</div>
+            </div>
+          </div>
+        </div>
+
         <KpiCard label="100.000 erreicht mit" value={formatAge(result.ageAt100k)} icon={Flag} />
-        <KpiCard label="500.000 erreicht mit" value={formatAge(result.ageAt500k)} icon={Rocket} />
         <KpiCard label="1 Mio. erreicht mit" value={formatAge(result.ageAt1m)} icon={Trophy} />
       </div>
 
