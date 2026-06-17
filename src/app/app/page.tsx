@@ -14,7 +14,7 @@ import { AdvisorMode } from "@/components/AdvisorMode";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { Onboarding } from "@/components/onboarding/Onboarding";
 import { Button } from "@/components/ui/primitives";
-import { LogoMark } from "@/components/ui/Logo";
+import { Logo } from "@/components/ui/Logo";
 import {
   CalendarClock,
   GitCompare,
@@ -63,11 +63,8 @@ export default function StudioPage() {
       {/* Kopfzeile */}
       <header className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <LogoMark size={42} />
-          <div>
-            <h1 className="text-lg font-semibold tracking-tight text-ink-900">MoneyTimeline Studio</h1>
-            <p className="text-xs text-ink-500">Finanz-Zukunftsplaner · Simulation, keine Anlageberatung</p>
-          </div>
+          <Logo size={40} />
+          <span className="hidden text-xs text-ink-400 sm:inline">· Simulation, keine Anlageberatung</span>
         </Link>
 
         <div className="flex flex-wrap items-center gap-2">

@@ -19,34 +19,40 @@ export function LogoMark({ size = 40, className }: { size?: number; className?: 
       aria-label="MoneyTimeline Studio Logo"
     >
       <defs>
-        <linearGradient id={frame} x1="56" y1="8" x2="8" y2="56" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#22b8cb" />
+        <linearGradient id={frame} x1="55" y1="9" x2="9" y2="55" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#19b8cf" />
           <stop offset="1" stopColor="#2f7df0" />
         </linearGradient>
-        <linearGradient id={bar} x1="32" y1="24" x2="32" y2="48" gradientUnits="userSpaceOnUse">
-          <stop offset="0" stopColor="#3b86f6" />
-          <stop offset="1" stopColor="#2f6cf0" />
+        <linearGradient id={bar} x1="32" y1="25" x2="32" y2="47" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stopColor="#50a4f7" />
+          <stop offset="1" stopColor="#2563eb" />
         </linearGradient>
-        <linearGradient id={line} x1="14" y1="44" x2="46" y2="20" gradientUnits="userSpaceOnUse">
+        <linearGradient id={line} x1="15" y1="42" x2="46" y2="20" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#2f7df0" />
-          <stop offset="1" stopColor="#22b8cb" />
+          <stop offset="1" stopColor="#16b8cf" />
         </linearGradient>
       </defs>
-      <rect x="8" y="8" width="48" height="48" rx="13" stroke={`url(#${frame})`} strokeWidth="3.5" />
-      <rect x="19" y="38" width="6" height="9" rx="1.5" fill={`url(#${bar})`} />
-      <rect x="29" y="32" width="6" height="15" rx="1.5" fill={`url(#${bar})`} />
-      <rect x="39" y="26" width="6" height="21" rx="1.5" fill={`url(#${bar})`} />
+      {/* Rahmen mit offener Ecke oben rechts */}
+      <path
+        d="M46 9 H21 Q9 9 9 21 V43 Q9 55 21 55 H43 Q55 55 55 43 V22"
+        stroke={`url(#${frame})`}
+        strokeWidth="3.2"
+        strokeLinecap="round"
+      />
+      <rect x="18" y="40" width="6" height="7" rx="1.6" fill={`url(#${bar})`} />
+      <rect x="27.5" y="34" width="6" height="13" rx="1.6" fill={`url(#${bar})`} />
+      <rect x="37" y="27" width="6" height="20" rx="1.6" fill={`url(#${bar})`} />
       <polyline
-        points="16,42 25,35 33,31 44,22"
+        points="17,41 26,34 34,30 45,21"
         stroke={`url(#${line})`}
         strokeWidth="2.6"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-      <circle cx="16" cy="42" r="3" fill="#2f7df0" />
-      <circle cx="25" cy="35" r="3" fill="#2f7df0" />
-      <circle cx="33" cy="31" r="3" fill="#2aa0d8" />
-      <circle cx="44" cy="22" r="3.4" fill="#22b8cb" />
+      <circle cx="17" cy="41" r="3" fill="#2f7df0" />
+      <circle cx="26" cy="34" r="3" fill="#2f7df0" />
+      <circle cx="34" cy="30" r="3" fill="#2a9fd6" />
+      <circle cx="45" cy="21" r="3.6" fill="#16b8cf" />
     </svg>
   );
 }
