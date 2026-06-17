@@ -174,7 +174,7 @@ export function LandingPage() {
       <footer className="mx-auto max-w-5xl px-4 pb-12 sm:px-6">
         <Disclaimer />
         <p className="mt-4 text-center text-xs text-ink-400">
-          © {new Date().getFullYear()} MoneyTimeline Studio · Simulationstool, keine Anlageberatung
+          © {new Date().getFullYear()} ETFMaxxing · Simulationstool, keine Anlageberatung
         </p>
       </footer>
 

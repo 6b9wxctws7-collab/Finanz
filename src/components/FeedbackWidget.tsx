@@ -46,7 +46,7 @@ export function FeedbackWidget() {
           <CheckCircle2 className="h-9 w-9 animate-pop-in text-emerald-500" strokeWidth={1.5} />
           <p className="text-sm font-medium text-ink-800">Danke für dein Feedback!</p>
           <p className="max-w-sm text-xs text-ink-400">
-            Es hilft uns zu entscheiden, ob und wie wir MoneyTimeline Studio weiterbauen.
+            Es hilft uns zu entscheiden, ob und wie wir ETFMaxxing weiterbauen.
           </p>
         </div>
       </Card>

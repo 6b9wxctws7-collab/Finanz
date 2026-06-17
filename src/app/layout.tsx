@@ -3,7 +3,7 @@ import "./globals.css";
 import { PlanProvider } from "@/lib/store";
 
 export const metadata: Metadata = {
-  title: "MoneyTimeline Studio",
+  title: "ETFMaxxing",
   description:
     "Interaktiver Finanz-Zukunftsplaner für Deutschland und die Schweiz. Simulation, keine Anlageberatung.",
   icons: { icon: "/logo-mark.svg" },

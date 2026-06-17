@@ -20,7 +20,7 @@ export function LogoMark({ size = 40, className }: { size?: number; className?: 
     return (
       <img
         src="/logo-mark.png"
-        alt="MoneyTimeline Studio"
+        alt="ETFMaxxing"
         width={size}
         height={size}
         onError={() => setPngFailed(true)}
@@ -41,7 +41,7 @@ export function LogoMark({ size = 40, className }: { size?: number; className?: 
       fill="none"
       className={className}
       role="img"
-      aria-label="MoneyTimeline Studio Logo"
+      aria-label="ETFMaxxing Logo"
     >
       <defs>
         <linearGradient id={frame} x1="55" y1="9" x2="9" y2="55" gradientUnits="userSpaceOnUse">
@@ -96,14 +96,9 @@ export function Logo({
     <span className={cn("flex items-center gap-2.5", className)}>
       <LogoMark size={size} />
       {showWordmark && (
-        <span className="leading-none">
-          <span className="block text-lg font-bold tracking-tight">
-            <span className="text-ink-900">Money</span>
-            <span className="text-[#1aa6bb]">Timeline</span>
-          </span>
-          <span className="mt-0.5 block text-[10px] font-semibold uppercase tracking-[0.28em] text-ink-400">
-            Studio
-          </span>
+        <span className="text-xl font-bold tracking-tight">
+          <span className="text-ink-900">ETF</span>
+          <span className="text-[#1aa6bb]">Maxxing</span>
         </span>
       )}
     </span>

@@ -21,7 +21,7 @@ export function AdvisorMode() {
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
-    a.download = `${plan.advisor.caseName || "moneytimeline"}.json`;
+    a.download = `${plan.advisor.caseName || "etfmaxxing"}.json`;
     a.click();
     URL.revokeObjectURL(url);
   }

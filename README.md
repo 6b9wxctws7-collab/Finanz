@@ -1,4 +1,4 @@
-# 💹 MoneyTimeline Studio
+# 💹 ETFMaxxing
 
 Interaktiver Finanz-Zukunftsplaner für **Deutschland und die Schweiz**. Simuliere,
 wie sich Budget, Inflation, Rendite, Sparrate und Lebensereignisse (Auto, Gehaltserhöhung,
