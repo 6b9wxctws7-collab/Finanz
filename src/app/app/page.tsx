@@ -12,6 +12,7 @@ import { EventsManager } from "@/components/EventsManager";
 import { ScenarioCompare } from "@/components/ScenarioCompare";
 import { AdvisorMode } from "@/components/AdvisorMode";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
+import { Onboarding } from "@/components/onboarding/Onboarding";
 import { Button } from "@/components/ui/primitives";
 import { LogoMark } from "@/components/ui/Logo";
 import {
@@ -52,8 +53,13 @@ export default function StudioPage() {
   const { plan, activeScenario, setActiveScenarioId, addScenario, loadDemo, resetAll, isReady } =
     usePlan();
 
+  // Beim ersten Öffnen (noch kein Onboarding durchlaufen) den Assistenten zeigen.
+  const showOnboarding = isReady && !plan.onboarded;
+
   return (
     <div className="mx-auto max-w-7xl px-4 pb-16 pt-5 sm:px-6">
+      {showOnboarding && <Onboarding />}
+
       {/* Kopfzeile */}
       <header className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/" className="flex items-center gap-3">

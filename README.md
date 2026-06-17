@@ -26,8 +26,16 @@ Next.js 14 (App Router) · TypeScript · React 18 · Tailwind CSS · Recharts ·
 
 ## Routen
 
-- **`/`** – Landingpage (Hero, Zielgruppen für Privatnutzer & Berater, CTAs „Demo starten" / „Beta-Zugang anfragen")
+- **`/`** – Landingpage (Hero, Zielgruppen für Privatnutzer & Berater, CTAs „Kostenlos starten" / „Beta-Zugang anfragen")
 - **`/app`** – die eigentliche Studio-App; am Ende ein **Feedback-Widget** (Zahlungsbereitschaft)
+
+## Onboarding
+
+Beim ersten Öffnen von `/app` (Flag `plan.onboarded` noch nicht gesetzt) erscheint ein
+mehrstufiger **Einführungs-Assistent** (`src/components/onboarding/Onboarding.tsx`): er
+erklärt die Vorteile und fragt die wichtigsten Startdaten ab (Land, Alter, Zielalter,
+Vermögen, Einkommen, Sparrate, Rendite/Inflation). Zum Abschluss wird daraus eine eigene
+Planung erzeugt. „Überspringen" bzw. „Demo ansehen" überspringt den Assistenten.
 
 ## Validierungsdaten (Beta-Leads & Feedback)
 

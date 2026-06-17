@@ -17,6 +17,11 @@ export function LandingPage() {
   const [betaOpen, setBetaOpen] = useState(false);
   const [betaRole, setBetaRole] = useState<UserRole>("private");
 
+  // Eigene Planung: ohne Demo-Daten in die App -> Onboarding-Assistent startet.
+  function startOnboarding() {
+    router.push("/app");
+  }
+
   function startDemo() {
     loadDemo();
     router.push("/app");
@@ -36,8 +41,8 @@ export function LandingPage() {
           <Button variant="ghost" onClick={() => openBeta("private")}>
             Beta anfragen
           </Button>
-          <Button variant="primary" onClick={startDemo}>
-            Demo starten
+          <Button variant="primary" onClick={startOnboarding}>
+            Kostenlos starten
           </Button>
         </div>
       </header>
@@ -61,15 +66,18 @@ export function LandingPage() {
             dein Endvermögen kostet oder bringt. Interaktiv, visuell, ohne Excel.
           </p>
           <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Button variant="primary" onClick={startDemo} className="px-6 py-3 text-base">
-              <Play className="h-4 w-4" /> Demo starten
+            <Button variant="primary" onClick={startOnboarding} className="px-6 py-3 text-base">
+              <Play className="h-4 w-4" /> Kostenlos starten
             </Button>
             <Button variant="secondary" onClick={() => openBeta("private")} className="px-6 py-3 text-base">
               Beta-Zugang anfragen
             </Button>
           </div>
           <p className="mt-3 text-xs text-ink-400">
-            Kostenlos testen · Keine Anmeldung nötig · Daten bleiben lokal im Browser
+            In 2 Min. startklar · Keine Anmeldung nötig · Daten bleiben lokal im Browser ·{" "}
+            <button onClick={startDemo} className="font-medium text-brand-600 underline-offset-2 hover:underline">
+              oder Demo-Szenario ansehen
+            </button>
           </p>
         </div>
       </section>
@@ -101,8 +109,8 @@ export function LandingPage() {
               "Vergleiche „Auto mit 32“ vs. „erst mit 36“",
               "Nominal und inflationsbereinigt – ehrliche Zahlen",
             ]}
-            primaryLabel="Demo starten"
-            onPrimary={startDemo}
+            primaryLabel="Kostenlos starten"
+            onPrimary={startOnboarding}
             secondaryLabel="Beta anfragen"
             onSecondary={() => openBeta("private")}
           />
@@ -131,14 +139,14 @@ export function LandingPage() {
             Bereit, deine Entscheidungen zu sehen?
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-sm text-white/80">
-            Starte mit dem Demo-Szenario oder sichere dir einen frühen Beta-Zugang.
+            Lege in 2 Minuten deine eigene Planung an oder sieh dir das Demo-Szenario an.
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <button
-              onClick={startDemo}
+              onClick={startOnboarding}
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-white px-6 py-3 text-base font-medium text-brand-700 transition-colors hover:bg-brand-50"
             >
-              <Play className="h-4 w-4" /> Demo starten
+              <Play className="h-4 w-4" /> Kostenlos starten
             </button>
             <button
               onClick={() => openBeta("private")}

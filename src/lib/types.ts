@@ -98,6 +98,8 @@ export interface Plan {
   activeScenarioId: string;
   baselineScenarioId: string;
   advisor: AdvisorSettings;
+  /** Wurde der Einführungs-Assistent bereits durchlaufen/übersprungen? */
+  onboarded?: boolean;
 }
 
 export interface AdvisorSettings {

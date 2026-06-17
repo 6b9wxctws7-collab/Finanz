@@ -30,6 +30,10 @@ interface PlanContextValue {
   loadDemo: () => void;
   resetAll: () => void;
   importPlan: (plan: Plan) => void;
+  /** Startet eine frische Planung aus dem Onboarding (markiert als onboarded). */
+  startPlan: (scenario: Scenario) => void;
+  /** Onboarding überspringen (aktuelle Daten/Demo behalten). */
+  skipOnboarding: () => void;
   isReady: boolean;
 }
 
@@ -155,9 +159,24 @@ export function PlanProvider({ children }: { children: React.ReactNode }) {
     [],
   );
 
-  const loadDemo = useCallback(() => setPlan(demoPlan()), []);
+  // Demo wird bewusst gewählt -> Onboarding gilt als erledigt.
+  const loadDemo = useCallback(() => setPlan({ ...demoPlan(), onboarded: true }), []);
   const resetAll = useCallback(() => setPlan(freshPlan()), []);
   const importPlan = useCallback((imported: Plan) => setPlan(imported), []);
+
+  const startPlan = useCallback((scenario: Scenario) => {
+    setPlan({
+      scenarios: [{ ...scenario, isBaseline: true }],
+      activeScenarioId: scenario.id,
+      baselineScenarioId: scenario.id,
+      advisor: { enabled: false, clientName: "", caseName: "Kundenfall 1" },
+      onboarded: true,
+    });
+  }, []);
+
+  const skipOnboarding = useCallback(() => {
+    setPlan((p) => ({ ...p, onboarded: true }));
+  }, []);
 
   const activeScenario = useMemo(
     () =>
@@ -181,6 +200,8 @@ export function PlanProvider({ children }: { children: React.ReactNode }) {
     loadDemo,
     resetAll,
     importPlan,
+    startPlan,
+    skipOnboarding,
     isReady,
   };
 
