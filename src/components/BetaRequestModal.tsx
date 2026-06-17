@@ -44,7 +44,7 @@ export function BetaRequestModal({
     <Modal open={open} onClose={close} title="Beta-Zugang anfragen">
       {done ? (
         <div className="space-y-4 text-center">
-          <MailCheck className="mx-auto h-10 w-10 text-emerald-500" strokeWidth={1.5} />
+          <MailCheck className="mx-auto h-10 w-10 animate-pop-in text-emerald-500" strokeWidth={1.5} />
           <p className="text-sm text-ink-700">
             Danke! Deine Anfrage ist gespeichert. Wir melden uns, sobald ein Beta-Platz frei wird.
           </p>

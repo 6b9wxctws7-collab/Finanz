@@ -43,7 +43,7 @@ export function FeedbackWidget() {
     return (
       <Card className="border-emerald-200">
         <div className="flex flex-col items-center gap-2 px-5 py-8 text-center">
-          <CheckCircle2 className="h-9 w-9 text-emerald-500" strokeWidth={1.5} />
+          <CheckCircle2 className="h-9 w-9 animate-pop-in text-emerald-500" strokeWidth={1.5} />
           <p className="text-sm font-medium text-ink-800">Danke für dein Feedback!</p>
           <p className="max-w-sm text-xs text-ink-400">
             Es hilft uns zu entscheiden, ob und wie wir MoneyTimeline Studio weiterbauen.

@@ -28,9 +28,22 @@ export function KpiCard({
   };
   const isDark = tone === "brand" || tone === "green";
   return (
-    <div className={cn("rounded-2xl border p-4 shadow-card", tones[tone])}>
+    <div
+      className={cn(
+        "group rounded-2xl border p-4 shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg",
+        tones[tone],
+      )}
+    >
       <div className="flex items-center gap-1.5">
-        {Icon && <Icon className={cn("h-4 w-4", isDark ? "text-white/90" : "text-brand-500")} strokeWidth={2.25} />}
+        {Icon && (
+          <Icon
+            className={cn(
+              "h-4 w-4 transition-transform duration-300 group-hover:scale-110",
+              isDark ? "text-white/90" : "text-brand-500",
+            )}
+            strokeWidth={2.25}
+          />
+        )}
         <span className={cn("text-xs font-medium", isDark ? "text-white/80" : "text-ink-500")}>
           {label}
         </span>

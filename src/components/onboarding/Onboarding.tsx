@@ -91,6 +91,7 @@ export function Onboarding() {
       {/* Inhalt: füllt den Bildschirm, vertikal zentriert */}
       <div className="flex-1 overflow-y-auto">
         <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col justify-center px-6 py-10 sm:px-8">
+          <div key={step} className="animate-fade-in-up">
           {step === 0 && <WelcomeStep />}
 
           {step === 1 && (
@@ -168,7 +169,7 @@ export function Onboarding() {
 
           {step === 4 && (
             <StepShell title="Dein Plan ist startklar 🎉" subtitle="Das hast du eingegeben – jederzeit änderbar:">
-              <div className="rounded-xl border border-ink-100 bg-ink-50/60 p-4 text-sm">
+              <div className="animate-pop-in rounded-xl border border-ink-100 bg-ink-50/60 p-4 text-sm">
                 <SummaryRow label="Alter" value={`${currentAge} → ${targetAge} Jahre`} />
                 <SummaryRow label="Startvermögen" value={formatCurrency(startWealth, currency)} />
                 <SummaryRow label="Nettoeinkommen" value={`${formatCurrency(netIncome, currency)} / Monat`} />
@@ -185,6 +186,7 @@ export function Onboarding() {
               </p>
             </StepShell>
           )}
+          </div>
         </div>
       </div>
 
@@ -237,11 +239,11 @@ function WelcomeStep() {
         Beantworte ein paar kurze Fragen – danach siehst du sofort, wie sich deine
         Entscheidungen über die Jahre auswirken.
       </p>
-      <ul className="mx-auto mt-8 grid max-w-xl gap-3 text-left sm:grid-cols-2">
+      <ul className="stagger-children mx-auto mt-8 grid max-w-xl gap-3 text-left sm:grid-cols-2">
         {benefits.map((b, i) => {
           const Icon = b.icon;
           return (
-            <li key={i} className="flex items-start gap-3 rounded-xl border border-ink-100 bg-white p-4 shadow-card">
+            <li key={i} className="flex items-start gap-3 rounded-xl border border-ink-100 bg-white p-4 shadow-card transition-transform duration-300 hover:-translate-y-1">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
                 <Icon className="h-5 w-5" strokeWidth={2.25} />
               </span>

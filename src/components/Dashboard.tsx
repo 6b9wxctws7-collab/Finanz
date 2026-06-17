@@ -3,10 +3,11 @@
 import { useMemo } from "react";
 import { runProjection } from "@/lib/projectionEngine";
 import { usePlan } from "@/lib/store";
-import { formatAge, formatCurrency } from "@/lib/format";
+import { formatCurrency } from "@/lib/format";
 import { assumptionWarnings, nextEvent } from "@/lib/insights";
 import { KpiCard } from "./KpiCard";
 import { WealthChart } from "./WealthChart";
+import { AnimatedNumber } from "./ui/AnimatedNumber";
 import { Card, CardHeader } from "./ui/primitives";
 import { Disclaimer } from "./Disclaimer";
 import {
@@ -33,16 +34,16 @@ export function Dashboard() {
   return (
     <div className="space-y-5">
       {/* Kennzahlenkarten */}
-      <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
+      <div className="stagger-children grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-4">
         <KpiCard label="Aktuelles Alter" value={`${activeScenario.start.currentAge} J.`} icon={Cake} />
         <KpiCard
           label="Aktuelles Vermögen"
-          value={formatCurrency(activeScenario.start.startWealth, cur)}
+          value={<AnimatedNumber value={activeScenario.start.startWealth} format={(n) => formatCurrency(n, cur)} />}
           icon={Landmark}
         />
         <KpiCard
           label="Monatliche Sparrate"
-          value={formatCurrency(result.initialMonthlySavings, cur)}
+          value={<AnimatedNumber value={result.initialMonthlySavings} format={(n) => formatCurrency(n, cur)} />}
           sub={
             result.initialMonthlySavings < 0 ? (
               <span className="inline-flex items-center gap-1 text-amber-700">
@@ -56,15 +57,15 @@ export function Dashboard() {
           tone={result.initialMonthlySavings < 0 ? "amber" : "default"}
         />
         {/* Endvermögen: nominal groß, inflationsbereinigte Kaufkraft direkt darunter */}
-        <div className="rounded-2xl border border-brand-700 bg-gradient-to-br from-brand-600 to-brand-700 p-4 text-white shadow-card">
+        <div className="group rounded-2xl border border-brand-700 bg-gradient-to-br from-brand-600 to-brand-700 p-4 text-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg">
           <div className="flex items-center gap-1.5">
-            <Target className="h-4 w-4 text-white/90" strokeWidth={2.25} />
+            <Target className="h-4 w-4 text-white/90 transition-transform duration-500 group-hover:rotate-12" strokeWidth={2.25} />
             <span className="text-xs font-medium text-white/80">
               Endvermögen mit {activeScenario.start.targetAge}
             </span>
           </div>
           <div className="mt-1.5 text-2xl font-semibold tracking-tight">
-            {formatCurrency(result.finalWealth, cur)}
+            <AnimatedNumber value={result.finalWealth} durationMs={900} format={(n) => formatCurrency(n, cur)} />
           </div>
           <div className="text-xs text-white/70">nominal</div>
 
@@ -72,15 +73,15 @@ export function Dashboard() {
             <ShoppingCart className="h-4 w-4 shrink-0 text-white/90" strokeWidth={2} />
             <div className="min-w-0">
               <div className="text-base font-semibold leading-tight">
-                {formatCurrency(result.finalRealWealth, cur)}
+                <AnimatedNumber value={result.finalRealWealth} durationMs={900} format={(n) => formatCurrency(n, cur)} />
               </div>
               <div className="text-[11px] leading-tight text-white/75">heutige Kaufkraft</div>
             </div>
           </div>
         </div>
 
-        <KpiCard label="100.000 erreicht mit" value={formatAge(result.ageAt100k)} icon={Flag} />
-        <KpiCard label="1 Mio. erreicht mit" value={formatAge(result.ageAt1m)} icon={Trophy} />
+        <KpiCard label="100.000 erreicht mit" value={<AnimatedAge age={result.ageAt100k} />} icon={Flag} />
+        <KpiCard label="1 Mio. erreicht mit" value={<AnimatedAge age={result.ageAt1m} />} icon={Trophy} />
       </div>
 
       {/* Nächstes Ereignis + Warnungen */}
@@ -155,9 +156,12 @@ export function Dashboard() {
         <div className="grid grid-cols-2 gap-px border-t border-ink-100 bg-ink-100 sm:grid-cols-2">
           <SplitStat
             label="Eingezahltes Kapital"
-            value={formatCurrency(result.totalContributions, cur)}
+            value={<AnimatedNumber value={result.totalContributions} format={(n) => formatCurrency(n, cur)} />}
           />
-          <SplitStat label="Erwirtschaftete Rendite" value={formatCurrency(result.totalReturns, cur)} />
+          <SplitStat
+            label="Erwirtschaftete Rendite"
+            value={<AnimatedNumber value={result.totalReturns} format={(n) => formatCurrency(n, cur)} />}
+          />
         </div>
       </Card>
 
@@ -184,11 +188,17 @@ function Legend({ color, label }: { color: string; label: string }) {
   );
 }
 
-function SplitStat({ label, value }: { label: string; value: string }) {
+function SplitStat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="bg-white px-5 py-3">
       <div className="text-xs text-ink-500">{label}</div>
       <div className="mt-0.5 text-base font-semibold text-ink-900">{value}</div>
     </div>
   );
+}
+
+/** Alter-Anzeige mit hochzählender Zahl (oder „—“, wenn unerreicht). */
+function AnimatedAge({ age }: { age: number | null }) {
+  if (age === null || !Number.isFinite(age)) return <>—</>;
+  return <AnimatedNumber value={age} durationMs={600} format={(n) => `${Math.round(n)} Jahre`} />;
 }

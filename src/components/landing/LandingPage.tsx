@@ -49,23 +49,32 @@ export function LandingPage() {
 
       {/* Hero */}
       <section className="relative overflow-hidden">
-        <div className="pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-brand-200/50 to-emerald-100/40 blur-3xl" />
+        <div className="animate-float pointer-events-none absolute -top-40 left-1/2 h-[420px] w-[820px] -translate-x-1/2 rounded-full bg-gradient-to-br from-brand-200/50 to-emerald-100/40 blur-3xl" />
         <div className="relative mx-auto max-w-4xl px-4 pb-12 pt-10 text-center sm:px-6 sm:pt-16">
-          <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
+          <span className="animate-fade-in-up inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
             <Globe className="h-3.5 w-3.5" /> Für Deutschland &amp; die Schweiz · Beta
           </span>
-          <h1 className="mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl">
+          <h1
+            className="animate-fade-in-up mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl"
+            style={{ animationDelay: "0.08s" }}
+          >
             Zeige in 5 Minuten, wie Auto, Wohnung,{" "}
-            <span className="bg-gradient-to-r from-brand-600 to-emerald-500 bg-clip-text text-transparent">
+            <span className="animate-gradient bg-gradient-to-r from-brand-600 via-emerald-500 to-brand-600 bg-clip-text text-transparent">
               Teilzeit oder Gehaltserhöhung
             </span>{" "}
             deine finanzielle Zukunft verändern.
           </h1>
-          <p className="mx-auto mt-5 max-w-2xl text-base text-ink-500 sm:text-lg">
+          <p
+            className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base text-ink-500 sm:text-lg"
+            style={{ animationDelay: "0.16s" }}
+          >
             Plane Budget, Sparrate und Lebensereignisse – und sieh sofort, was eine Entscheidung
             dein Endvermögen kostet oder bringt. Interaktiv, visuell, ohne Excel.
           </p>
-          <div className="mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <div
+            className="animate-fade-in-up mt-7 flex flex-col items-center justify-center gap-3 sm:flex-row"
+            style={{ animationDelay: "0.24s" }}
+          >
             <Button variant="primary" onClick={startOnboarding} className="px-6 py-3 text-base">
               <Play className="h-4 w-4" /> Kostenlos starten
             </Button>
@@ -73,7 +82,10 @@ export function LandingPage() {
               Beta-Zugang anfragen
             </Button>
           </div>
-          <p className="mt-3 text-xs text-ink-400">
+          <p
+            className="animate-fade-in-up mt-3 text-xs text-ink-400"
+            style={{ animationDelay: "0.32s" }}
+          >
             In 2 Min. startklar · Keine Anmeldung nötig · Daten bleiben lokal im Browser ·{" "}
             <button onClick={startDemo} className="font-medium text-brand-600 underline-offset-2 hover:underline">
               oder Demo-Szenario ansehen
@@ -84,7 +96,7 @@ export function LandingPage() {
 
       {/* So funktioniert's */}
       <section className="mx-auto max-w-5xl px-4 py-8 sm:px-6">
-        <div className="grid gap-3 sm:grid-cols-3">
+        <div className="stagger-children grid gap-3 sm:grid-cols-3">
           <Step n="1" title="Budget & Startdaten" text="Einkommen, Ausgaben und Annahmen eingeben – die Sparrate wird automatisch berechnet." />
           <Step n="2" title="Ereignisse hinzufügen" text="Auto, Wohnung, Teilzeit, Gehaltserhöhung – per Vorlage in Sekunden." />
           <Step n="3" title="Wirkung sehen" text="Vermögenskurve, Meilensteine und Opportunitätskosten in Echtzeit." />
@@ -99,7 +111,7 @@ export function LandingPage() {
         <p className="mb-6 text-center text-sm text-ink-500">
           Egal ob für dich selbst oder deine Kund:innen.
         </p>
-        <div className="grid gap-4 md:grid-cols-2">
+        <div className="stagger-children grid gap-4 md:grid-cols-2">
           <AudienceCard
             icon={UserRound}
             title="Privatnutzer"
@@ -173,7 +185,7 @@ export function LandingPage() {
 
 function Step({ n, title, text }: { n: string; title: string; text: string }) {
   return (
-    <div className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card">
+    <div className="rounded-2xl border border-ink-100 bg-white p-5 shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg">
       <div className="flex h-8 w-8 items-center justify-center rounded-full bg-brand-50 text-sm font-semibold text-brand-700">
         {n}
       </div>
@@ -207,12 +219,12 @@ function AudienceCard({
   return (
     <div
       className={
-        "flex flex-col rounded-2xl border bg-white p-6 shadow-card " +
+        "group flex flex-col rounded-2xl border bg-white p-6 shadow-card transition-transform duration-300 hover:-translate-y-1.5 hover:shadow-card-lg " +
         (highlight ? "border-brand-300 ring-1 ring-brand-200" : "border-ink-100")
       }
     >
       <div className="flex items-center gap-3">
-        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
+        <span className="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-50 text-brand-600 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3">
           <Icon className="h-6 w-6" strokeWidth={2} />
         </span>
         <div>
