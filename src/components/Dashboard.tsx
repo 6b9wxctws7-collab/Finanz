@@ -57,8 +57,15 @@ export function Dashboard() {
         />
         <KpiCard label="1 Mio. erreicht mit" value={<AnimatedAge age={result.ageAt1m} />} icon={Trophy} />
 
-        {/* Endvermögen als breiter Balken über die volle Breite */}
-        <div className="group col-span-2 flex flex-col gap-4 rounded-2xl border border-brand-700 bg-gradient-to-br from-brand-600 to-brand-700 p-5 text-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg sm:flex-row sm:items-center sm:justify-between lg:col-span-4">
+        {/* Endvermögen als breiter Balken über die volle Breite – grün im Plus, rot im Minus */}
+        <div
+          className={
+            "group col-span-2 flex flex-col gap-4 rounded-2xl border p-5 text-white shadow-card transition-transform duration-300 hover:-translate-y-1 hover:shadow-card-lg sm:flex-row sm:items-center sm:justify-between lg:col-span-4 " +
+            (result.finalWealth >= 0
+              ? "border-emerald-600 bg-gradient-to-br from-emerald-500 to-emerald-600"
+              : "border-red-600 bg-gradient-to-br from-red-500 to-red-600")
+          }
+        >
           <div>
             <div className="flex items-center gap-1.5">
               <Target className="h-4 w-4 text-white/90 transition-transform duration-500 group-hover:rotate-12" strokeWidth={2.25} />
