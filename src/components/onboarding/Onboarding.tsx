@@ -65,9 +65,9 @@ export function Onboarding() {
   const isLast = step === STEPS.length - 1;
 
   return (
-    <div className="fixed inset-0 z-50 flex animate-fade-in flex-col bg-gradient-to-b from-brand-50/50 to-white">
+    <div className="fixed inset-0 z-50 flex animate-fade-in flex-col bg-gradient-to-b from-brand-50 to-white">
       {/* Kopf: Fortschritt + Überspringen */}
-      <div className="flex items-center justify-between gap-4 border-b border-ink-100 bg-white/70 px-5 py-4 backdrop-blur sm:px-8">
+      <div className="flex items-center justify-between gap-4 border-b border-ink-100 bg-white px-5 py-4 sm:px-8">
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
             {STEPS.map((_, i) => (
@@ -190,7 +190,7 @@ export function Onboarding() {
       </div>
 
       {/* Navigation */}
-      <div className="border-t border-ink-100 bg-white/70 px-6 py-4 backdrop-blur sm:px-8">
+      <div className="border-t border-ink-100 bg-white px-6 py-4 sm:px-8">
         <div className="mx-auto flex max-w-2xl items-center justify-between gap-3">
           {step === 0 ? (
             <Button variant="ghost" onClick={loadDemo}>
@@ -242,7 +242,7 @@ function WelcomeStep() {
         {benefits.map((b, i) => {
           const Icon = b.icon;
           return (
-            <li key={i} className="flex items-start gap-3 rounded-xl border border-ink-100 bg-white/70 p-4 shadow-card">
+            <li key={i} className="flex items-start gap-3 rounded-xl border border-ink-100 bg-white p-4 shadow-card">
               <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
                 <Icon className="h-5 w-5" strokeWidth={2.25} />
               </span>
