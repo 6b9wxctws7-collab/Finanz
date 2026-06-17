@@ -13,6 +13,7 @@ import { ScenarioCompare } from "@/components/ScenarioCompare";
 import { AdvisorMode } from "@/components/AdvisorMode";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
 import { Button } from "@/components/ui/primitives";
+import { LogoMark } from "@/components/ui/Logo";
 
 type TabKey = "dashboard" | "start" | "budget" | "timeline" | "events" | "compare" | "advisor";
 
@@ -36,9 +37,7 @@ export default function StudioPage() {
       {/* Kopfzeile */}
       <header className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <Link href="/" className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-lg shadow-card">
-            💹
-          </div>
+          <LogoMark size={42} />
           <div>
             <h1 className="text-lg font-semibold tracking-tight text-ink-900">MoneyTimeline Studio</h1>
             <p className="text-xs text-ink-500">Finanz-Zukunftsplaner · Simulation, keine Anlageberatung</p>

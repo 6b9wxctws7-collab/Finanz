@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { usePlan } from "@/lib/store";
 import { Button } from "@/components/ui/primitives";
+import { Logo } from "@/components/ui/Logo";
 import { BetaRequestModal } from "@/components/BetaRequestModal";
 import { Disclaimer } from "@/components/Disclaimer";
 import { UserRole } from "@/lib/feedback";
@@ -28,12 +29,7 @@ export function LandingPage() {
     <div className="min-h-screen">
       {/* Top-Bar */}
       <header className="mx-auto flex max-w-6xl items-center justify-between px-4 py-5 sm:px-6">
-        <div className="flex items-center gap-2.5">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500 to-brand-700 text-base shadow-card">
-            💹
-          </div>
-          <span className="font-semibold tracking-tight text-ink-900">MoneyTimeline Studio</span>
-        </div>
+        <Logo size={36} />
         <div className="flex items-center gap-2">
           <Button variant="ghost" onClick={() => openBeta("private")}>
             Beta anfragen
