@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { usePlan } from "@/lib/store";
 import { Button } from "@/components/ui/primitives";
 import { Logo } from "@/components/ui/Logo";
@@ -54,15 +54,7 @@ export function LandingPage() {
           <span className="animate-fade-in-up inline-flex items-center gap-1.5 rounded-full border border-brand-200 bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
             <Rocket className="h-3.5 w-3.5" /> Zinseszins-pilled · DE &amp; CH · Beta
           </span>
-          <h1
-            className="animate-fade-in-up mt-5 text-4xl font-bold leading-[1.1] tracking-tight text-ink-900 sm:text-5xl"
-            style={{ animationDelay: "0.08s" }}
-          >
-            Hör auf zu broke sein.{" "}
-            <span className="animate-gradient bg-gradient-to-r from-brand-600 via-emerald-500 to-brand-600 bg-clip-text text-transparent">
-              Fang an zu ETF-maxxen.
-            </span>
-          </h1>
+          <RotatingHeadline />
           <p
             className="animate-fade-in-up mx-auto mt-5 max-w-2xl text-base text-ink-500 sm:text-lg"
             style={{ animationDelay: "0.16s" }}
@@ -194,6 +186,34 @@ function Step({ n, title, text }: { n: string; title: string; text: string }) {
       <h3 className="mt-3 text-sm font-semibold text-ink-900">{title}</h3>
       <p className="mt-1 text-sm text-ink-500">{text}</p>
     </div>
+  );
+}
+
+const HEADLINES: { lead: string; accent: string }[] = [
+  { lead: "Hör auf zu broke sein.", accent: "Fang an zu ETF-maxxen." },
+  { lead: "Zinseszins ist", accent: "literally ein Cheatcode." },
+  { lead: "Spar heute,", accent: "flex morgen." },
+  { lead: "Dein Geld arbeitet,", accent: "während du chillst." },
+  { lead: "Future you", accent: "sagt schon mal danke." },
+];
+
+/** Hero-Headline, die alle paar Sekunden den Spruch wechselt. */
+function RotatingHeadline() {
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setI((v) => (v + 1) % HEADLINES.length), 4500);
+    return () => clearInterval(id);
+  }, []);
+  const { lead, accent } = HEADLINES[i];
+  return (
+    <h1 className="mt-5 flex min-h-[7.5rem] items-center justify-center text-4xl font-bold leading-[1.1] tracking-tight text-ink-900 sm:min-h-[8rem] sm:text-5xl">
+      <span key={i} className="animate-fade-in-up block">
+        {lead}{" "}
+        <span className="animate-gradient bg-gradient-to-r from-brand-600 via-emerald-500 to-brand-600 bg-clip-text text-transparent">
+          {accent}
+        </span>
+      </span>
+    </h1>
   );
 }
 

@@ -62,6 +62,7 @@ export function WealthChart({ result, currency, showSplit = true, height = 320 }
         <Tooltip
           formatter={(value: number, name) => [formatCurrency(value, currency), labelFor(name as string)]}
           labelFormatter={(label) => `Alter ${label}`}
+          cursor={{ stroke: "#3479f6", strokeWidth: 1.5, strokeDasharray: "4 4" }}
           contentStyle={{
             borderRadius: 12,
             border: "1px solid #e5e8ee",
@@ -81,6 +82,10 @@ export function WealthChart({ result, currency, showSplit = true, height = 320 }
           strokeWidth={2.5}
           fill="url(#gNominal)"
           name="nominal"
+          isAnimationActive
+          animationDuration={1400}
+          animationEasing="ease-out"
+          activeDot={{ r: 5, strokeWidth: 2, stroke: "#fff" }}
         />
         {showSplit && (
           <Area
@@ -91,6 +96,11 @@ export function WealthChart({ result, currency, showSplit = true, height = 320 }
             strokeDasharray="4 3"
             fill="url(#gEingezahlt)"
             name="eingezahlt"
+            isAnimationActive
+            animationDuration={1400}
+            animationBegin={250}
+            animationEasing="ease-out"
+            activeDot={{ r: 4, strokeWidth: 2, stroke: "#fff" }}
           />
         )}
         <Area
@@ -100,6 +110,11 @@ export function WealthChart({ result, currency, showSplit = true, height = 320 }
           strokeWidth={2}
           fill="none"
           name="real"
+          isAnimationActive
+          animationDuration={1400}
+          animationBegin={450}
+          animationEasing="ease-out"
+          activeDot={{ r: 5, strokeWidth: 2, stroke: "#fff" }}
         />
       </AreaChart>
     </ResponsiveContainer>

@@ -19,17 +19,17 @@ export function Timeline() {
         <CardHeader title="Lebenslinie" subtitle="Vermögen pro Jahr – Ereignisse sind markiert" />
         <div className="overflow-x-auto px-5 py-6">
           <div className="flex min-w-[680px] items-end gap-[3px]" style={{ height: 180 }}>
-            {result.years.map((y) => {
+            {result.years.map((y, i) => {
               const h = Math.max(2, (y.endWealth / maxWealth) * 160);
               const hasEvent = y.events.length > 0;
               return (
                 <div key={y.age} className="group relative flex flex-1 flex-col items-center justify-end">
                   <div
                     className={
-                      "w-full rounded-t-sm transition-all " +
+                      "animate-grow-up w-full rounded-t-sm transition-colors " +
                       (hasEvent ? "bg-brand-500" : "bg-brand-200 group-hover:bg-brand-300")
                     }
-                    style={{ height: h }}
+                    style={{ height: h, animationDelay: `${Math.min(i * 22, 1100)}ms` }}
                   />
                   {hasEvent && (
                     <span className="absolute -top-3 h-2 w-2 rounded-full bg-brand-500 ring-2 ring-white" />

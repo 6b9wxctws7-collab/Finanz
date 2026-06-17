@@ -116,7 +116,7 @@ body {
   animation: scrollHint 3.6s ease-in-out infinite;
 }
 
-/* Konfetti-Regen für Feier-Momente. */
+/* Konfetti-/Geldregen für Feier-Momente. */
 @keyframes confettiFall {
   0% {
     transform: translateY(-20px) rotate(0deg);
@@ -126,6 +126,61 @@ body {
     transform: translateY(480px) rotate(720deg);
     opacity: 0;
   }
+}
+@keyframes moneyFall {
+  0% {
+    transform: translateY(-30px) rotate(-12deg);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(520px) rotate(16deg);
+    opacity: 0;
+  }
+}
+
+/* Balken wachsen von unten hoch (Lebenslinie). */
+@keyframes growUp {
+  from {
+    transform: scaleY(0);
+  }
+  to {
+    transform: scaleY(1);
+  }
+}
+.animate-grow-up {
+  transform-origin: bottom;
+  animation: growUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Richtungs-Slides (z. B. Onboarding-Schritte). */
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-44px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+.animate-slide-in-right {
+  animation: slideInRight 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.animate-slide-in-left {
+  animation: slideInLeft 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 /* Gestaffelte Einblendung direkter Kinder (z. B. KPI-Karten). */

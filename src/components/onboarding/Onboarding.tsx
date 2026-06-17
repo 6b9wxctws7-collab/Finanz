@@ -19,7 +19,7 @@ import { Country, Scenario } from "@/lib/types";
 import { Button, Field, Segmented } from "@/components/ui/primitives";
 import { NumberInput } from "@/components/ui/NumberInput";
 import { AnimatedNumber } from "@/components/ui/AnimatedNumber";
-import { Confetti } from "@/components/ui/Confetti";
+import { MoneyRain } from "@/components/ui/MoneyRain";
 import { Logo } from "@/components/ui/Logo";
 import { Disclaimer } from "@/components/Disclaimer";
 
@@ -29,6 +29,16 @@ export function Onboarding() {
   const { startPlan, skipOnboarding, loadDemo } = usePlan();
 
   const [step, setStep] = useState(0);
+  // Richtung der letzten Navigation – steuert die Slide-Animation der Schritte.
+  const [dir, setDir] = useState<"fwd" | "back">("fwd");
+  const goNext = () => {
+    setDir("fwd");
+    setStep((s) => s + 1);
+  };
+  const goBack = () => {
+    setDir("back");
+    setStep((s) => s - 1);
+  };
   const [country, setCountry] = useState<Country>("DE");
   const [currentAge, setCurrentAge] = useState(30);
   const [targetAge, setTargetAge] = useState(65);
@@ -68,7 +78,7 @@ export function Onboarding() {
 
   return (
     <div className="fixed inset-0 z-50 flex animate-fade-in flex-col bg-gradient-to-b from-brand-50 to-white">
-      {step === STEPS.length - 1 && <Confetti />}
+      {step === STEPS.length - 1 && <MoneyRain />}
       {/* Kopf: Fortschritt + Überspringen */}
       <div className="flex items-center justify-between gap-4 border-b border-ink-100 bg-white px-5 py-4 sm:px-8">
         <div className="flex items-center gap-3">
@@ -99,7 +109,7 @@ export function Onboarding() {
       {/* Inhalt: füllt den Bildschirm, vertikal zentriert */}
       <div className="flex-1 overflow-y-auto">
         <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col justify-center px-6 py-10 sm:px-8">
-          <div key={step} className="animate-fade-in-up">
+          <div key={step} className={dir === "fwd" ? "animate-slide-in-right" : "animate-slide-in-left"}>
           {step === 0 && <WelcomeStep />}
 
           {step === 1 && (
@@ -234,7 +244,7 @@ export function Onboarding() {
               Lieber Demo ansehen
             </Button>
           ) : (
-            <Button variant="ghost" onClick={() => setStep((s) => s - 1)}>
+            <Button variant="ghost" onClick={goBack}>
               Zurück
             </Button>
           )}
@@ -243,7 +253,7 @@ export function Onboarding() {
               <Check className="h-4 w-4" /> Planung starten
             </Button>
           ) : (
-            <Button variant="primary" onClick={() => setStep((s) => s + 1)} className="px-6 py-3 text-base">
+            <Button variant="primary" onClick={goNext} className="px-6 py-3 text-base">
               {step === 0 ? "Los geht's" : "Weiter"}
             </Button>
           )}
