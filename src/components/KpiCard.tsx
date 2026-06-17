@@ -30,7 +30,7 @@ export function KpiCard({
   return (
     <div className={cn("rounded-2xl border p-4 shadow-card", tones[tone])}>
       <div className="flex items-center gap-1.5">
-        {Icon && <Icon className={cn("h-4 w-4", isDark ? "text-white/80" : "text-ink-400")} strokeWidth={2} />}
+        {Icon && <Icon className={cn("h-4 w-4", isDark ? "text-white/90" : "text-brand-500")} strokeWidth={2.25} />}
         <span className={cn("text-xs font-medium", isDark ? "text-white/80" : "text-ink-500")}>
           {label}
         </span>

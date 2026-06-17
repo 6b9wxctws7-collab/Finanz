@@ -27,14 +27,24 @@ import {
 
 type TabKey = "dashboard" | "start" | "budget" | "timeline" | "events" | "compare" | "advisor";
 
-const tabs: { key: TabKey; label: string; icon: LucideIcon }[] = [
-  { key: "dashboard", label: "Dashboard", icon: LayoutDashboard },
-  { key: "start", label: "Startdaten", icon: Settings },
-  { key: "budget", label: "Budget", icon: Wallet },
-  { key: "timeline", label: "Timeline", icon: LineChart },
-  { key: "events", label: "Lebensereignisse", icon: CalendarClock },
-  { key: "compare", label: "Vergleich", icon: GitCompare },
-  { key: "advisor", label: "Beratermodus", icon: Presentation },
+interface Tab {
+  key: TabKey;
+  label: string;
+  icon: LucideIcon;
+  /** Vollständige Tailwind-Klassen (statisch, damit sie nicht weggepurged werden). */
+  activeBg: string;
+  iconColor: string;
+  hover: string;
+}
+
+const tabs: Tab[] = [
+  { key: "dashboard", label: "Dashboard", icon: LayoutDashboard, activeBg: "bg-blue-600", iconColor: "text-blue-600", hover: "hover:bg-blue-50" },
+  { key: "start", label: "Startdaten", icon: Settings, activeBg: "bg-violet-600", iconColor: "text-violet-600", hover: "hover:bg-violet-50" },
+  { key: "budget", label: "Budget", icon: Wallet, activeBg: "bg-emerald-600", iconColor: "text-emerald-600", hover: "hover:bg-emerald-50" },
+  { key: "timeline", label: "Timeline", icon: LineChart, activeBg: "bg-sky-600", iconColor: "text-sky-600", hover: "hover:bg-sky-50" },
+  { key: "events", label: "Lebensereignisse", icon: CalendarClock, activeBg: "bg-amber-500", iconColor: "text-amber-600", hover: "hover:bg-amber-50" },
+  { key: "compare", label: "Vergleich", icon: GitCompare, activeBg: "bg-purple-600", iconColor: "text-purple-600", hover: "hover:bg-purple-50" },
+  { key: "advisor", label: "Beratermodus", icon: Presentation, activeBg: "bg-rose-600", iconColor: "text-rose-600", hover: "hover:bg-rose-50" },
 ];
 
 export default function StudioPage() {
@@ -79,21 +89,22 @@ export default function StudioPage() {
         </div>
       </header>
 
-      {/* Navigation */}
-      <nav className="mb-6 flex gap-1 overflow-x-auto rounded-2xl border border-ink-100 bg-white p-1.5 shadow-card">
+      {/* Navigation – zentrale, farblich kodierte Bereiche */}
+      <nav className="mb-6 flex gap-1.5 overflow-x-auto rounded-2xl border border-ink-100 bg-white p-2 shadow-card-lg">
         {tabs.map((t) => {
           const Icon = t.icon;
+          const active = tab === t.key;
           return (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
               className={cn(
-                "flex shrink-0 items-center gap-1.5 rounded-xl px-3.5 py-2 text-sm font-medium transition-colors",
-                tab === t.key ? "bg-brand-600 text-white shadow-sm" : "text-ink-600 hover:bg-ink-100",
+                "flex shrink-0 items-center gap-2 rounded-xl px-4 py-3 text-sm font-semibold transition-colors",
+                active ? cn(t.activeBg, "text-white shadow-sm") : cn("text-ink-700", t.hover),
               )}
             >
-              <Icon className="h-4 w-4" strokeWidth={2} />
-              <span className="hidden sm:inline">{t.label}</span>
+              <Icon className={cn("h-5 w-5", active ? "text-white" : t.iconColor)} strokeWidth={2.25} />
+              <span>{t.label}</span>
             </button>
           );
         })}
