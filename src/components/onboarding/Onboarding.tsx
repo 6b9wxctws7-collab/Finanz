@@ -65,27 +65,33 @@ export function Onboarding() {
   const isLast = step === STEPS.length - 1;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center overflow-y-auto bg-ink-950/50 p-3 backdrop-blur-sm sm:items-center sm:p-4">
-      <div className="my-auto w-full max-w-lg animate-fade-in rounded-2xl bg-white shadow-card-lg">
-        {/* Kopf: Fortschritt + Überspringen */}
-        <div className="flex items-center justify-between border-b border-ink-100 px-5 py-3.5">
+    <div className="fixed inset-0 z-50 flex animate-fade-in flex-col bg-gradient-to-b from-brand-50/50 to-white">
+      {/* Kopf: Fortschritt + Überspringen */}
+      <div className="flex items-center justify-between gap-4 border-b border-ink-100 bg-white/70 px-5 py-4 backdrop-blur sm:px-8">
+        <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
             {STEPS.map((_, i) => (
               <span
                 key={i}
                 className={
                   "h-1.5 rounded-full transition-all " +
-                  (i === step ? "w-6 bg-brand-600" : i < step ? "w-3 bg-brand-300" : "w-3 bg-ink-200")
+                  (i === step ? "w-7 bg-brand-600" : i < step ? "w-3 bg-brand-300" : "w-3 bg-ink-200")
                 }
               />
             ))}
           </div>
-          <button onClick={skipOnboarding} className="text-xs font-medium text-ink-400 hover:text-ink-600">
-            Überspringen
-          </button>
+          <span className="hidden text-xs font-medium text-ink-400 sm:inline">
+            Schritt {step + 1} von {STEPS.length}
+          </span>
         </div>
+        <button onClick={skipOnboarding} className="text-sm font-medium text-ink-400 hover:text-ink-600">
+          Überspringen
+        </button>
+      </div>
 
-        <div className="px-6 py-6">
+      {/* Inhalt: füllt den Bildschirm, vertikal zentriert */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="mx-auto flex min-h-full w-full max-w-2xl flex-col justify-center px-6 py-10 sm:px-8">
           {step === 0 && <WelcomeStep />}
 
           {step === 1 && (
@@ -181,9 +187,11 @@ export function Onboarding() {
             </StepShell>
           )}
         </div>
+      </div>
 
-        {/* Navigation */}
-        <div className="flex items-center justify-between gap-3 border-t border-ink-100 px-6 py-4">
+      {/* Navigation */}
+      <div className="border-t border-ink-100 bg-white/70 px-6 py-4 backdrop-blur sm:px-8">
+        <div className="mx-auto flex max-w-2xl items-center justify-between gap-3">
           {step === 0 ? (
             <Button variant="ghost" onClick={loadDemo}>
               Lieber Demo ansehen
@@ -194,11 +202,11 @@ export function Onboarding() {
             </Button>
           )}
           {isLast ? (
-            <Button variant="primary" onClick={finish}>
+            <Button variant="primary" onClick={finish} className="px-6 py-3 text-base">
               <Check className="h-4 w-4" /> Planung starten
             </Button>
           ) : (
-            <Button variant="primary" onClick={() => setStep((s) => s + 1)}>
+            <Button variant="primary" onClick={() => setStep((s) => s + 1)} className="px-6 py-3 text-base">
               {step === 0 ? "Los geht's" : "Weiter"}
             </Button>
           )}
@@ -217,28 +225,28 @@ function WelcomeStep() {
   ];
   return (
     <div className="text-center">
-      <div className="mb-4 flex justify-center">
-        <Logo size={44} />
+      <div className="mb-5 flex justify-center">
+        <Logo size={52} />
       </div>
       <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-medium text-brand-700">
         <Sparkles className="h-3.5 w-3.5" /> In 2 Minuten startklar
       </span>
-      <h2 className="mt-3 text-xl font-semibold tracking-tight text-ink-900">
+      <h2 className="mt-4 text-3xl font-bold tracking-tight text-ink-900 sm:text-4xl">
         Plane deine finanzielle Zukunft
       </h2>
-      <p className="mx-auto mt-1.5 max-w-sm text-sm text-ink-500">
+      <p className="mx-auto mt-3 max-w-md text-base text-ink-500">
         Beantworte ein paar kurze Fragen – danach siehst du sofort, wie sich deine
         Entscheidungen über die Jahre auswirken.
       </p>
-      <ul className="mt-5 space-y-2.5 text-left">
+      <ul className="mx-auto mt-8 grid max-w-xl gap-3 text-left sm:grid-cols-2">
         {benefits.map((b, i) => {
           const Icon = b.icon;
           return (
-            <li key={i} className="flex items-start gap-3">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
-                <Icon className="h-4 w-4" strokeWidth={2.25} />
+            <li key={i} className="flex items-start gap-3 rounded-xl border border-ink-100 bg-white/70 p-4 shadow-card">
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                <Icon className="h-5 w-5" strokeWidth={2.25} />
               </span>
-              <span className="pt-1 text-sm text-ink-700">{b.text}</span>
+              <span className="text-sm text-ink-700">{b.text}</span>
             </li>
           );
         })}
@@ -258,9 +266,9 @@ function StepShell({
 }) {
   return (
     <div>
-      <h2 className="text-xl font-semibold tracking-tight text-ink-900">{title}</h2>
-      <p className="mt-1 text-sm text-ink-500">{subtitle}</p>
-      <div className="mt-5 space-y-4">{children}</div>
+      <h2 className="text-2xl font-bold tracking-tight text-ink-900 sm:text-3xl">{title}</h2>
+      <p className="mt-2 text-base text-ink-500">{subtitle}</p>
+      <div className="mt-6 space-y-4">{children}</div>
     </div>
   );
 }
