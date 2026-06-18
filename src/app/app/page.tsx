@@ -12,12 +12,14 @@ import { EventsManager } from "@/components/EventsManager";
 import { ScenarioCompare } from "@/components/ScenarioCompare";
 import { AdvisorMode } from "@/components/AdvisorMode";
 import { FeedbackWidget } from "@/components/FeedbackWidget";
+import { EtfGame } from "@/components/EtfGame";
 import { Onboarding } from "@/components/onboarding/Onboarding";
 import { Button } from "@/components/ui/primitives";
 import { Logo } from "@/components/ui/Logo";
 import {
   CalendarClock,
   ChevronsUpDown,
+  Gamepad2,
   GitCompare,
   LayoutDashboard,
   LineChart,
@@ -30,7 +32,7 @@ import {
   Wallet,
 } from "lucide-react";
 
-type TabKey = "dashboard" | "start" | "budget" | "timeline" | "events" | "compare" | "advisor";
+type TabKey = "dashboard" | "start" | "budget" | "timeline" | "events" | "compare" | "advisor" | "game";
 
 interface Tab {
   key: TabKey;
@@ -50,6 +52,7 @@ const tabs: Tab[] = [
   { key: "events", label: "Lebensereignisse", icon: CalendarClock, activeBg: "bg-amber-500", iconColor: "text-amber-600", hover: "hover:bg-amber-50" },
   { key: "compare", label: "Vergleich", icon: GitCompare, activeBg: "bg-purple-600", iconColor: "text-purple-600", hover: "hover:bg-purple-50" },
   { key: "advisor", label: "Beratermodus", icon: Presentation, activeBg: "bg-rose-600", iconColor: "text-rose-600", hover: "hover:bg-rose-50" },
+  { key: "game", label: "ETF Catcher", icon: Gamepad2, activeBg: "bg-fuchsia-600", iconColor: "text-fuchsia-600", hover: "hover:bg-fuchsia-50" },
 ];
 
 export default function StudioPage() {
@@ -160,6 +163,7 @@ export default function StudioPage() {
         {tab === "events" && <EventsManager />}
         {tab === "compare" && <ScenarioCompare />}
         {tab === "advisor" && <AdvisorMode />}
+        {tab === "game" && <EtfGame />}
       </main>
 
       {/* Feedback zur Validierung */}
